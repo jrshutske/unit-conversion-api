@@ -9,10 +9,10 @@ An api for converting units of measurement, which can easily be deployed to Hero
 Make sure you have Java and Maven installed.  Also, install the [Heroku CLI](https://cli.heroku.com/).
 
 ```sh
-$ git clone https://github.com/heroku/java-getting-started.git
+$ git clone https://github.com/jrshutske/unit-conversion-api.git
 $ cd unit-conversion-api
 $ mvn install
-$ heroku local:start
+$ run main
 ```
 
 Your app should now be running on [localhost:5000](http://localhost:5000/).
