@@ -1,8 +1,6 @@
 # unit-conversion-api
 
-A barebones Java app, which can easily be deployed to Heroku.
-
-This application supports the [Getting Started with Java on Heroku](https://devcenter.heroku.com/articles/getting-started-with-java) article - check it out.
+An api for converting units of measurement, which can easily be deployed to Heroku.
 
 [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
@@ -12,18 +10,13 @@ Make sure you have Java and Maven installed.  Also, install the [Heroku CLI](htt
 
 ```sh
 $ git clone https://github.com/heroku/java-getting-started.git
-$ cd java-getting-started
+$ cd unit-conversion-api
 $ mvn install
 $ heroku local:start
 ```
 
 Your app should now be running on [localhost:5000](http://localhost:5000/).
 
-If you're going to use a database, ensure you have a local `.env` file that reads something like this:
-
-```
-JDBC_DATABASE_URL=jdbc:postgresql://localhost:5432/java_database_name
-```
 
 ## Deploying to Heroku
 
