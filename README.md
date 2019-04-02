@@ -1,4 +1,4 @@
-# java-getting-started
+# unit-conversion-api
 
 A barebones Java app, which can easily be deployed to Heroku.
 
