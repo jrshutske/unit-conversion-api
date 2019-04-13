@@ -18,4 +18,5 @@ public class Temperature {
     private int kelvin;
 
     public Temperature(){}
+
 }

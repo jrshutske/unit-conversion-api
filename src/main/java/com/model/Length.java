@@ -9,35 +9,35 @@ public class Length {
 
     @Getter
     @Setter
-    private int mile;
+    private Double mile;
 
     @Getter
     @Setter
-    private int kilometer;
+    private Double kilometer;
 
     @Getter
     @Setter
-    private int yard;
+    private Double yard;
 
     @Getter
     @Setter
-    private int meter;
+    private Double meter;
 
     @Getter
     @Setter
-    private int centimeter;
+    private Double centimeter;
 
     @Getter
     @Setter
-    private int foot;
+    private Double foot;
 
     @Getter
     @Setter
-    private int inch;
+    private Double inch;
 
     @Getter
     @Setter
-    private int millimeter;
+    private Double millimeter;
 
     public Length(){}
 }

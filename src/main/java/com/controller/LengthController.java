@@ -1,34 +1,12 @@
-/*
- * Copyright 2002-2014 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.controller;
 
-import com.controller.TypeController;
 import com.model.Length;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.lang.reflect.InvocationHandler;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,52 +34,50 @@ public class LengthController {
         }
     }
 
-    @GetMapping(value = "/api/length/{unit}")
-    public ResponseEntity<?> length(@PathVariable String unit) {
+    @GetMapping(value = "/api/length/{unit}/{amount}")
+    public ResponseEntity<?> length(@PathVariable String unit,
+                                    @PathVariable Double amount) {
         switch(unit) {
-            case "mile":return convertMile(1);
+            case "mile":return convertMile(amount);
+            case "kilometer":return convertKilometer(amount);
+            case "yard":return convertYard(amount);
+            case "inch":return convertInch(amount);
+            case "meter":return convertMeter(amount);
+            case "centimeter":return convertCentimeter(amount);
+            case "millimeter":return convertMillimeter(amount);
+            case "foot":return convertFoot(amount);
             default:return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
         }
 
     }
 
-    public ResponseEntity<?> convertMile(int unit) {
+    public ResponseEntity<?> convertMile(Double amount) {
         Length lengthModel = new Length();
-        lengthModel.setCentimeter(unit);
-        lengthModel.setFoot(unit);
-        lengthModel.setInch(unit);
-        lengthModel.setKilometer(unit);
-        lengthModel.setMeter(unit);
-        lengthModel.setMile(unit);
-        lengthModel.setMillimeter(unit);
-        lengthModel.setYard(unit);
-        if (lengthModel.getMile()!=1) {
+        lengthModel.setCentimeter(amount*160934.4);
+        lengthModel.setFoot(amount*5280);
+        lengthModel.setInch(amount*63360);
+        lengthModel.setKilometer(amount*1.609);
+        lengthModel.setMeter(amount*1609.344);
+        lengthModel.setMile(amount);
+        lengthModel.setMillimeter(amount*1.609e+6);
+        lengthModel.setYard(amount*1760);
+        if (lengthModel.getMile() == null) {
             return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
         } else {
             return new ResponseEntity<>(lengthModel, HttpStatus.OK);
         }
     }
 
-
-    @GetMapping(value = "/api/length/{unit}")
-    public ResponseEntity<?> length(@PathVariable String unit) {
-        switch(unit) {
-            case "kilometer":return convertKilometer(1);
-            default:return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
-        }
-
-    }
-
-    public ResponseEntity<?> convertKilometer(int unit) {
+    public ResponseEntity<?> convertKilometer(Double amount) {
         Length lengthModel = new Length();
-        lengthModel.setCentimeter(unit);
-        lengthModel.setFoot(unit);
-        lengthModel.setInch(unit);
-        lengthModel.setKilometer(unit);
-        lengthModel.setMeter(unit);
-        lengthModel.setMile(unit);
-        lengthModel.setMillimeter(unit);
-        lengthModel.setYard(unit);
+        lengthModel.setCentimeter(amount*100000);
+        lengthModel.setFoot(amount*3280.84);
+        lengthModel.setInch(amount*39370.079);
+        lengthModel.setKilometer(amount);
+        lengthModel.setMeter(amount*1000);
+        lengthModel.setMile(amount/1.609);
+        lengthModel.setMillimeter(amount/1e+6);
+        lengthModel.setYard(amount*1093.613);
         if (lengthModel.getKilometer()!=1) {
             return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
         } else {
@@ -109,16 +85,7 @@ public class LengthController {
         }
     }
 
-    @GetMapping(value = "/api/length/{unit}")
-    public ResponseEntity<?> length(@PathVariable String unit) {
-        switch(unit) {
-            case "yard":return convertYard(1);
-            default:return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
-        }
-
-    }
-
-    public ResponseEntity<?> convertYard(int unit) {
+    public ResponseEntity<?> convertYard(Double unit) {
         Length lengthModel = new Length();
         lengthModel.setCentimeter(unit);
         lengthModel.setFoot(unit);
@@ -135,16 +102,7 @@ public class LengthController {
         }
     }
 
-    @GetMapping(value = "/api/length/{unit}")
-    public ResponseEntity<?> length(@PathVariable String unit) {
-        switch(unit) {
-            case "meter":return convertMeter(1);
-            default:return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
-        }
-
-    }
-
-    public ResponseEntity<?> convertMeter(int unit) {
+    public ResponseEntity<?> convertMeter(double unit) {
         Length lengthModel = new Length();
         lengthModel.setCentimeter(unit);
         lengthModel.setFoot(unit);
@@ -161,16 +119,7 @@ public class LengthController {
         }
     }
 
-    @GetMapping(value = "/api/length/{unit}")
-    public ResponseEntity<?> length(@PathVariable String unit) {
-        switch(unit) {
-            case "foot":return convertFoot(1);
-            default:return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
-        }
-
-    }
-
-    public ResponseEntity<?> convertFoot(int unit) {
+    public ResponseEntity<?> convertFoot(double unit) {
         Length lengthModel = new Length();
         lengthModel.setCentimeter(unit);
         lengthModel.setFoot(unit);
@@ -187,16 +136,7 @@ public class LengthController {
         }
     }
 
-    @GetMapping(value = "/api/length/{unit}")
-    public ResponseEntity<?> length(@PathVariable String unit) {
-        switch(unit) {
-            case "inch":return convertInch(1);
-            default:return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
-        }
-
-    }
-
-    public ResponseEntity<?> convertInch(int unit) {
+    public ResponseEntity<?> convertInch(double unit) {
         Length lengthModel = new Length();
         lengthModel.setCentimeter(unit);
         lengthModel.setFoot(unit);
@@ -213,16 +153,7 @@ public class LengthController {
         }
     }
 
-    @GetMapping(value = "/api/length/{unit}")
-    public ResponseEntity<?> length(@PathVariable String unit) {
-        switch(unit) {
-            case "centimeter":return convertCentimeter(1);
-            default:return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
-        }
-
-    }
-
-    public ResponseEntity<?> convertCentimeter(int unit) {
+    public ResponseEntity<?> convertCentimeter(double unit) {
         Length lengthModel = new Length();
         lengthModel.setCentimeter(unit);
         lengthModel.setFoot(unit);
@@ -239,16 +170,7 @@ public class LengthController {
         }
     }
 
-    @GetMapping(value = "/api/length/{unit}")
-    public ResponseEntity<?> length(@PathVariable String unit) {
-        switch(unit) {
-            case "millimeter":return convertMillimeter(1);
-            default:return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
-        }
-
-    }
-
-    public ResponseEntity<?> convertMillimeter(int unit) {
+    public ResponseEntity<?> convertMillimeter(double unit) {
         Length lengthModel = new Length();
         lengthModel.setCentimeter(unit);
         lengthModel.setFoot(unit);
