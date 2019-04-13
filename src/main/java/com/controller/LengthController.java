@@ -83,23 +83,186 @@ public class LengthController {
     }
 
 
-//    public ResponseEntity<?> convertMile(int unit) {
-//        Length lengthModel = new Length();
-//        lengthModel.setCentimeter(unit);
-//        lengthModel.setFoot(unit);
-//        lengthModel.setInch(unit);
-//        lengthModel.setKilometer(unit);
-//        lengthModel.setMeter(unit);
-//        lengthModel.setMile(unit);
-//        lengthModel.setMillimeter(unit);
-//        lengthModel.setYard(unit);
-//        if (lengthModel.getMile()!=1) {
-//            return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
-//        } else {
-//            return new ResponseEntity<>(lengthModel, HttpStatus.OK);
-//        }
-//    }
+    @GetMapping(value = "/api/length/{unit}")
+    public ResponseEntity<?> length(@PathVariable String unit) {
+        switch(unit) {
+            case "kilometer":return convertKilometer(1);
+            default:return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
+        }
 
+    }
 
+    public ResponseEntity<?> convertKilometer(int unit) {
+        Length lengthModel = new Length();
+        lengthModel.setCentimeter(unit);
+        lengthModel.setFoot(unit);
+        lengthModel.setInch(unit);
+        lengthModel.setKilometer(unit);
+        lengthModel.setMeter(unit);
+        lengthModel.setMile(unit);
+        lengthModel.setMillimeter(unit);
+        lengthModel.setYard(unit);
+        if (lengthModel.getKilometer()!=1) {
+            return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
+        } else {
+            return new ResponseEntity<>(lengthModel, HttpStatus.OK);
+        }
+    }
+
+    @GetMapping(value = "/api/length/{unit}")
+    public ResponseEntity<?> length(@PathVariable String unit) {
+        switch(unit) {
+            case "yard":return convertYard(1);
+            default:return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
+        }
+
+    }
+
+    public ResponseEntity<?> convertYard(int unit) {
+        Length lengthModel = new Length();
+        lengthModel.setCentimeter(unit);
+        lengthModel.setFoot(unit);
+        lengthModel.setInch(unit);
+        lengthModel.setKilometer(unit);
+        lengthModel.setMeter(unit);
+        lengthModel.setMile(unit);
+        lengthModel.setMillimeter(unit);
+        lengthModel.setYard(unit);
+        if (lengthModel.getYard()!=1) {
+            return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
+        } else {
+            return new ResponseEntity<>(lengthModel, HttpStatus.OK);
+        }
+    }
+
+    @GetMapping(value = "/api/length/{unit}")
+    public ResponseEntity<?> length(@PathVariable String unit) {
+        switch(unit) {
+            case "meter":return convertMeter(1);
+            default:return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
+        }
+
+    }
+
+    public ResponseEntity<?> convertMeter(int unit) {
+        Length lengthModel = new Length();
+        lengthModel.setCentimeter(unit);
+        lengthModel.setFoot(unit);
+        lengthModel.setInch(unit);
+        lengthModel.setKilometer(unit);
+        lengthModel.setMeter(unit);
+        lengthModel.setMile(unit);
+        lengthModel.setMillimeter(unit);
+        lengthModel.setYard(unit);
+        if (lengthModel.getMeter()!=1) {
+            return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
+        } else {
+            return new ResponseEntity<>(lengthModel, HttpStatus.OK);
+        }
+    }
+
+    @GetMapping(value = "/api/length/{unit}")
+    public ResponseEntity<?> length(@PathVariable String unit) {
+        switch(unit) {
+            case "foot":return convertFoot(1);
+            default:return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
+        }
+
+    }
+
+    public ResponseEntity<?> convertFoot(int unit) {
+        Length lengthModel = new Length();
+        lengthModel.setCentimeter(unit);
+        lengthModel.setFoot(unit);
+        lengthModel.setInch(unit);
+        lengthModel.setKilometer(unit);
+        lengthModel.setMeter(unit);
+        lengthModel.setMile(unit);
+        lengthModel.setMillimeter(unit);
+        lengthModel.setYard(unit);
+        if (lengthModel.getFoot()!=1) {
+            return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
+        } else {
+            return new ResponseEntity<>(lengthModel, HttpStatus.OK);
+        }
+    }
+
+    @GetMapping(value = "/api/length/{unit}")
+    public ResponseEntity<?> length(@PathVariable String unit) {
+        switch(unit) {
+            case "inch":return convertInch(1);
+            default:return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
+        }
+
+    }
+
+    public ResponseEntity<?> convertInch(int unit) {
+        Length lengthModel = new Length();
+        lengthModel.setCentimeter(unit);
+        lengthModel.setFoot(unit);
+        lengthModel.setInch(unit);
+        lengthModel.setKilometer(unit);
+        lengthModel.setMeter(unit);
+        lengthModel.setMile(unit);
+        lengthModel.setMillimeter(unit);
+        lengthModel.setYard(unit);
+        if (lengthModel.getInch()!=1) {
+            return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
+        } else {
+            return new ResponseEntity<>(lengthModel, HttpStatus.OK);
+        }
+    }
+
+    @GetMapping(value = "/api/length/{unit}")
+    public ResponseEntity<?> length(@PathVariable String unit) {
+        switch(unit) {
+            case "centimeter":return convertCentimeter(1);
+            default:return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
+        }
+
+    }
+
+    public ResponseEntity<?> convertCentimeter(int unit) {
+        Length lengthModel = new Length();
+        lengthModel.setCentimeter(unit);
+        lengthModel.setFoot(unit);
+        lengthModel.setInch(unit);
+        lengthModel.setKilometer(unit);
+        lengthModel.setMeter(unit);
+        lengthModel.setMile(unit);
+        lengthModel.setMillimeter(unit);
+        lengthModel.setYard(unit);
+        if (lengthModel.getCentimeter()!=1) {
+            return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
+        } else {
+            return new ResponseEntity<>(lengthModel, HttpStatus.OK);
+        }
+    }
+
+    @GetMapping(value = "/api/length/{unit}")
+    public ResponseEntity<?> length(@PathVariable String unit) {
+        switch(unit) {
+            case "millimeter":return convertMillimeter(1);
+            default:return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
+        }
+
+    }
+
+    public ResponseEntity<?> convertMillimeter(int unit) {
+        Length lengthModel = new Length();
+        lengthModel.setCentimeter(unit);
+        lengthModel.setFoot(unit);
+        lengthModel.setInch(unit);
+        lengthModel.setKilometer(unit);
+        lengthModel.setMeter(unit);
+        lengthModel.setMile(unit);
+        lengthModel.setMillimeter(unit);
+        lengthModel.setYard(unit);
+        if (lengthModel.getMillimeter()!=1) {
+            return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
+        } else {
+            return new ResponseEntity<>(lengthModel, HttpStatus.OK);
+        }
+    }
 }
 
