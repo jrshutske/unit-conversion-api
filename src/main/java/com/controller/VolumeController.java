@@ -17,7 +17,7 @@
 package com.controller;
 
 import com.controller.TypeController;
-import com.model.Temperature;
+import com.model.Volume;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpStatus;
@@ -35,14 +35,16 @@ import java.util.List;
 
 @Controller
 @SpringBootApplication
-public class TemperatureController {
+public class VolumeController {
 
     public enum Units {
-        fahrenheit, celsius, kelvin
+        gallon, liter, quart,
+        pint, cup, milliliter,
+        fluidOunce
     }
 
-    @GetMapping(value = "/api/temperature")
-    public ResponseEntity<?> temperature() {
+    @GetMapping(value = "/api/volume")
+    public ResponseEntity<?> volume() {
         final List<Units> unitsArrayList = new ArrayList<>();
         for (Units unit : Units.values()) {
             unitsArrayList.add(unit);
@@ -54,26 +56,30 @@ public class TemperatureController {
         }
     }
 
-    @GetMapping(value = "/api/temperture/{unit}")
+    @GetMapping(value = "/api/volume/{unit}")
     public ResponseEntity<?> volume(@PathVariable String unit) {
         switch (unit) {
-            case "fahrenheit":
-                return convertFahrenheit(1);
+            case "gallon":
+                return convertGallon(1);
             default:
                 return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
         }
 
     }
 
-    public ResponseEntity<?> convertFahrenheit(int unit) {
-        Temperature temperatureModel = new Temperature();
-        temperatureModel.setFahrenheit(unit);
-        temperatureModel.setCelsius(unit);
-        temperatureModel.setKelvin(unit);
-        if (temperatureModel.getFahrenheit() != 1) {
+    public ResponseEntity<?> convertGallon(int unit) {
+        Volume volumeModel = new Volume();
+        volumeModel.setGallon(unit);
+        volumeModel.setLiter(unit);
+        volumeModel.setQuart(unit);
+        volumeModel.setPint(unit);
+        volumeModel.setCup(unit);
+        volumeModel.setMilliliter(unit);
+        volumeModel.setFluidOunce(unit);
+        if (volumeModel.getGallon() != 1) {
             return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
         } else {
-            return new ResponseEntity<>(temperatureModel, HttpStatus.OK);
+            return new ResponseEntity<>(volumeModel, HttpStatus.OK);
         }
     }
 }
