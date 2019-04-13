@@ -15,7 +15,7 @@ import java.util.List;
 @SpringBootApplication
 public class LengthController {
 
-    public enum Units {
+    public enum units {
         mile, kilometer, yard,
         meter, centimeter, foot,
         inch, millimeter
@@ -23,14 +23,14 @@ public class LengthController {
 
     @GetMapping(value = "/api/length")
     public ResponseEntity<?> length() {
-        final List<Units> unitsArrayList = new ArrayList<>();
-        for (Units unit : Units.values()) {
-            unitsArrayList.add(unit);
+        final List<units> amountsArrayList = new ArrayList<>();
+        for (units amount : units.values()) {
+            amountsArrayList.add(amount);
         }
-        if (unitsArrayList.isEmpty()) {
+        if (amountsArrayList.isEmpty()) {
             return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
         } else {
-            return new ResponseEntity<>(unitsArrayList, HttpStatus.OK);
+            return new ResponseEntity<>(amountsArrayList, HttpStatus.OK);
         }
     }
 
@@ -51,6 +51,14 @@ public class LengthController {
 
     }
 
+    public ResponseEntity<?> jsonResponse(Length lengthModel) {
+        if (lengthModel.getMile() == null) {
+            return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
+        } else {
+            return new ResponseEntity<>(lengthModel, HttpStatus.OK);
+        }
+    }
+
     public ResponseEntity<?> convertMile(Double amount) {
         Length lengthModel = new Length();
         lengthModel.setCentimeter(amount*160934.4);
@@ -61,12 +69,9 @@ public class LengthController {
         lengthModel.setMile(amount);
         lengthModel.setMillimeter(amount*1.609e+6);
         lengthModel.setYard(amount*1760);
-        if (lengthModel.getMile() == null) {
-            return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
-        } else {
-            return new ResponseEntity<>(lengthModel, HttpStatus.OK);
-        }
+        return jsonResponse(lengthModel);
     }
+
 
     public ResponseEntity<?> convertKilometer(Double amount) {
         Length lengthModel = new Length();
@@ -78,113 +83,85 @@ public class LengthController {
         lengthModel.setMile(amount/1.609);
         lengthModel.setMillimeter(amount/1e+6);
         lengthModel.setYard(amount*1093.613);
-        if (lengthModel.getKilometer()!=1) {
-            return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
-        } else {
-            return new ResponseEntity<>(lengthModel, HttpStatus.OK);
-        }
+        return jsonResponse(lengthModel);
     }
 
-    public ResponseEntity<?> convertYard(Double unit) {
+    public ResponseEntity<?> convertYard(Double amount) {
         Length lengthModel = new Length();
-        lengthModel.setCentimeter(unit);
-        lengthModel.setFoot(unit);
-        lengthModel.setInch(unit);
-        lengthModel.setKilometer(unit);
-        lengthModel.setMeter(unit);
-        lengthModel.setMile(unit);
-        lengthModel.setMillimeter(unit);
-        lengthModel.setYard(unit);
-        if (lengthModel.getYard()!=1) {
-            return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
-        } else {
-            return new ResponseEntity<>(lengthModel, HttpStatus.OK);
-        }
+        lengthModel.setCentimeter(amount* 91.44);
+        lengthModel.setFoot(amount*3);
+        lengthModel.setInch(amount*36);
+        lengthModel.setKilometer(amount/1093.613);
+        lengthModel.setMeter(amount/1.094);
+        lengthModel.setMile(amount/1760);
+        lengthModel.setMillimeter(amount*914.4);
+        lengthModel.setYard(amount);
+        return jsonResponse(lengthModel);
     }
 
-    public ResponseEntity<?> convertMeter(double unit) {
+    public ResponseEntity<?> convertMeter(double amount) {
         Length lengthModel = new Length();
-        lengthModel.setCentimeter(unit);
-        lengthModel.setFoot(unit);
-        lengthModel.setInch(unit);
-        lengthModel.setKilometer(unit);
-        lengthModel.setMeter(unit);
-        lengthModel.setMile(unit);
-        lengthModel.setMillimeter(unit);
-        lengthModel.setYard(unit);
-        if (lengthModel.getMeter()!=1) {
-            return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
-        } else {
-            return new ResponseEntity<>(lengthModel, HttpStatus.OK);
-        }
+        lengthModel.setCentimeter(amount*100);
+        lengthModel.setFoot(amount*3.281);
+        lengthModel.setInch(amount*39.37);
+        lengthModel.setKilometer(amount/1000);
+        lengthModel.setMeter(amount);
+        lengthModel.setMile(amount/1609.344);
+        lengthModel.setMillimeter(amount*1000);
+        lengthModel.setYard(amount*1.094);
+        return jsonResponse(lengthModel);
     }
 
-    public ResponseEntity<?> convertFoot(double unit) {
+    public ResponseEntity<?> convertFoot(double amount) {
         Length lengthModel = new Length();
-        lengthModel.setCentimeter(unit);
-        lengthModel.setFoot(unit);
-        lengthModel.setInch(unit);
-        lengthModel.setKilometer(unit);
-        lengthModel.setMeter(unit);
-        lengthModel.setMile(unit);
-        lengthModel.setMillimeter(unit);
-        lengthModel.setYard(unit);
-        if (lengthModel.getFoot()!=1) {
-            return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
-        } else {
-            return new ResponseEntity<>(lengthModel, HttpStatus.OK);
-        }
+        lengthModel.setCentimeter(amount*30.48);
+        lengthModel.setFoot(amount);
+        lengthModel.setInch(amount*12);
+        lengthModel.setKilometer(amount/3280.84);
+        lengthModel.setMeter(amount/3.281);
+        lengthModel.setMile(amount/5280);
+        lengthModel.setMillimeter(amount*304.8);
+        lengthModel.setYard(amount/3);
+        return jsonResponse(lengthModel);
     }
 
-    public ResponseEntity<?> convertInch(double unit) {
+    public ResponseEntity<?> convertInch(Double amount) {
         Length lengthModel = new Length();
-        lengthModel.setCentimeter(unit);
-        lengthModel.setFoot(unit);
-        lengthModel.setInch(unit);
-        lengthModel.setKilometer(unit);
-        lengthModel.setMeter(unit);
-        lengthModel.setMile(unit);
-        lengthModel.setMillimeter(unit);
-        lengthModel.setYard(unit);
-        if (lengthModel.getInch()!=1) {
-            return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
-        } else {
-            return new ResponseEntity<>(lengthModel, HttpStatus.OK);
-        }
+        lengthModel.setCentimeter(amount*2.54);
+        lengthModel.setFoot(amount/12);
+        lengthModel.setInch(amount);
+        lengthModel.setKilometer(amount/39370.079);
+        lengthModel.setMeter(amount/39.37);
+        lengthModel.setMile(amount/63360);
+        lengthModel.setMillimeter(amount*25.4);
+        lengthModel.setYard(amount/36);
+        return jsonResponse(lengthModel);
     }
 
-    public ResponseEntity<?> convertCentimeter(double unit) {
+    public ResponseEntity<?> convertCentimeter(Double amount) {
         Length lengthModel = new Length();
-        lengthModel.setCentimeter(unit);
-        lengthModel.setFoot(unit);
-        lengthModel.setInch(unit);
-        lengthModel.setKilometer(unit);
-        lengthModel.setMeter(unit);
-        lengthModel.setMile(unit);
-        lengthModel.setMillimeter(unit);
-        lengthModel.setYard(unit);
-        if (lengthModel.getCentimeter()!=1) {
-            return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
-        } else {
-            return new ResponseEntity<>(lengthModel, HttpStatus.OK);
-        }
+        lengthModel.setCentimeter(amount);
+        lengthModel.setFoot(amount/30.48);
+        lengthModel.setInch(amount/2.54);
+        lengthModel.setKilometer(amount/100000);
+        lengthModel.setMeter(amount/100);
+        lengthModel.setMile(amount/160934.4);
+        lengthModel.setMillimeter(amount*10);
+        lengthModel.setYard(amount/91.44);
+        return jsonResponse(lengthModel);
     }
 
-    public ResponseEntity<?> convertMillimeter(double unit) {
+    public ResponseEntity<?> convertMillimeter(Double amount) {
         Length lengthModel = new Length();
-        lengthModel.setCentimeter(unit);
-        lengthModel.setFoot(unit);
-        lengthModel.setInch(unit);
-        lengthModel.setKilometer(unit);
-        lengthModel.setMeter(unit);
-        lengthModel.setMile(unit);
-        lengthModel.setMillimeter(unit);
-        lengthModel.setYard(unit);
-        if (lengthModel.getMillimeter()!=1) {
-            return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
-        } else {
-            return new ResponseEntity<>(lengthModel, HttpStatus.OK);
-        }
+        lengthModel.setCentimeter(amount/10);
+        lengthModel.setFoot(amount/304.8);
+        lengthModel.setInch(amount/25.4);
+        lengthModel.setKilometer(amount/1e+6);
+        lengthModel.setMeter(amount/1000);
+        lengthModel.setMile(amount/1.609e+6);
+        lengthModel.setMillimeter(amount);
+        lengthModel.setYard(amount/914.4);
+        return jsonResponse(lengthModel);
     }
 }
 
