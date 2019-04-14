@@ -11,6 +11,7 @@
 ||||
 
 ## Jack
+| ------ | ------ | ------ |
 | Day | Time | Accomplishment |
 | 4/1 | 7:00-9:00PM | setup heroku and initialize project |
 | 4/9 | 7:00-9:00PM | create basic controller and model structure |
