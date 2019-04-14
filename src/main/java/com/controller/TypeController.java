@@ -34,21 +34,13 @@ import java.util.List;
 @SpringBootApplication
 public class TypeController {
 
-    public enum Types {
+    public enum types {
         volume, length, weight, temperature
     }
 
     @GetMapping(value = "/api")
     public ResponseEntity<?> api() {
-        final List<Types> typesArrayList = new ArrayList<Types>();
-        for (Types type : Types.values()) {
-            typesArrayList.add(type);
-        }
-        if (typesArrayList.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
-        } else {
-            return new ResponseEntity<>(typesArrayList, HttpStatus.OK);
-        }
+        return new ResponseEntity<>(types.values(), HttpStatus.OK);
     }
 }
 

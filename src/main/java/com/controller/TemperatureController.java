@@ -21,29 +21,31 @@ public class TemperatureController {
         fahrenheit, celsius, kelvin
     }
 
+    static final Double defaultAmount = 1.0;
+
     @GetMapping(value = "/api/temperature")
     public ResponseEntity<?> temperature() {
-        final List<units> amountsArrayList = new ArrayList<>();
-        for (units amount : units.values()) {
-            amountsArrayList.add(amount);
-        }
-        if (amountsArrayList.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
-        } else {
-            return new ResponseEntity<>(amountsArrayList, HttpStatus.OK);
-        }
+        return new ResponseEntity<>(units.values(), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/api/temperature/{unit}")
+    public ResponseEntity<?> defaultTemperature(@PathVariable String unit) {
+        return convertTemperature(unit, defaultAmount);
     }
 
     @GetMapping(value = "/api/temperature/{unit}/{amount}")
-    public ResponseEntity<?> volume(@PathVariable String unit,
-                                    @PathVariable Double amount) {
+    public ResponseEntity<?> customTemperature(@PathVariable String unit,
+                                               @PathVariable Double amount) {
+        return convertTemperature(unit, amount);
+    }
+
+    public ResponseEntity<?> convertTemperature(String unit, Double amount) {
         switch (unit) {
             case "fahrenheit": return convertFahrenheit(amount);
             case "celsius": return convertCelsius(amount);
             case "kelvin": return convertKelvin(amount);
             default:return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
         }
-
     }
 
     public ResponseEntity<?> jsonResponse(Temperature temperatureModel) {
@@ -61,6 +63,7 @@ public class TemperatureController {
         temperatureModel.setKelvin((amount-32)/1.8000+273.15);
         return jsonResponse(temperatureModel);
     }
+
     public ResponseEntity<?> convertCelsius(Double amount) {
         Temperature temperatureModel = new Temperature();
         temperatureModel.setFahrenheit(amount*1.8000+32);
@@ -68,6 +71,7 @@ public class TemperatureController {
         temperatureModel.setKelvin(amount+273.15);
         return jsonResponse(temperatureModel);
     }
+
     public ResponseEntity<?> convertKelvin(Double amount) {
         Temperature temperatureModel = new Temperature();
         temperatureModel.setFahrenheit((amount-273.15)*1.8000+32);
