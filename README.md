@@ -8,17 +8,17 @@ If you need a list of conversions for all the common units of measurement for vo
  - Used alongside geolocation applications can determine which unit to display to their users
 
 ## URI Examples
-> /api _enum array of all types of measurement_
+> /api > _enum array of all types of measurement_
 ```javascript
 ["volume", "length", "weight", "temperature"]
 ```
 
-> /api/length _enum array of all units of the given type_
+> /api/length > _enum array of all units of the given type_
 ```javascript
 ["mile", "kilometer", "yard", "meter", "centimeter", "foot", "inch", "millimeter"]
 ```
 
-> /api/length/mile  _by default the it will convert 1 mile_
+> /api/length/mile > _by default the it will convert 1 mile_
 ```javascript
 {
 "mile":1.0,
@@ -32,7 +32,7 @@ If you need a list of conversions for all the common units of measurement for vo
 }
 ```
 
-> /api/length/mile/1337  _accepts custom amount_
+> /api/length/mile/1337 > _accepts custom amount_
 ```javascript
 {
 "mile":1337.0,
@@ -46,7 +46,7 @@ If you need a list of conversions for all the common units of measurement for vo
 }
 ```
 
-> api/length/mile/9000.1  _amount can be a decimal_
+> api/length/mile/9000.1 > _amount can be a decimal_
 ```javascript
 {
 "mile":9000.1,
@@ -60,7 +60,7 @@ If you need a list of conversions for all the common units of measurement for vo
 }
 ```
 
->/api/length/millimeter/9.7555e-5  _supports scientific notation_
+>/api/length/millimeter/9.7555e-5 > _supports scientific notation_
 ```javascript
 {
 "mile":9.695463020509633E-5,
