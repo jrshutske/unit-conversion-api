@@ -1,11 +1,13 @@
 # unit-conversion-api
 
 If you need a list of conversions for all the common units of measurement for volume, length, weight, and temperature you can use this to specify what you want to convert and how much. This way app developers don't need to build all of there own conversions by hand, effectively reducing the amount of work and thinking they need to do.
-### Use cases
+
+## Use cases
  - Scientific applications where unit conversion is necessary
  - Cooking applications where unit conversion is necessary
  - Used alongside geolocation applications can determine which unit to display to their users
 
+## URI Examples
 > /api
 ```javascript
 ["volume","length","weight","temperature"]
@@ -44,7 +46,7 @@ If you need a list of conversions for all the common units of measurement for vo
 }
 ```
 
->> api/length/mile/9000.1
+> api/length/mile/9000.1
 ```javascript
 {
 "mile":9000.1,
@@ -58,7 +60,7 @@ If you need a list of conversions for all the common units of measurement for vo
 }
 ```
 
-### Installing
+## Installing
 
 ```
 git clone git@github.com:jrshutske/unit-conversion-api.git
@@ -94,7 +96,6 @@ See also the list of [contributors](https://github.com/jrshutske/unit-conversion
 
 * Madison Area Technical College
 * Evening Enterprise Java Class
-
 
 ## Running Locally
 
