@@ -11,8 +11,8 @@
 ||||
 
 ## Jack
-| ------ | ------ | ------ |
 | Day | Time | Accomplishment |
+| ------ | ------ | ------ |
 | 4/1 | 7:00-9:00PM | setup heroku and initialize project |
 | 4/9 | 7:00-9:00PM | create basic controller and model structure |
 | 4/12 | 10:30-11:30PM | review Norm's pull request |
