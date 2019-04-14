@@ -10,12 +10,12 @@ If you need a list of conversions for all the common units of measurement for vo
 ## URI Examples
 > /api _enum array of all types of measurement_
 ```javascript
-["volume","length","weight","temperature"]
+["volume", "length", "weight", "temperature"]
 ```
 
 > /api/length _enum array of all units of the given type_
 ```javascript
-["mile","kilometer","yard","meter","centimeter","foot","inch","millimeter"]
+["mile", "kilometer", "yard", "meter", "centimeter", "foot", "inch", "millimeter"]
 ```
 
 > /api/length/mile  _by default the it will convert 1 mile_
