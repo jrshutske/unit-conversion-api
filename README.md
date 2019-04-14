@@ -19,7 +19,6 @@ mvn install
 * [Spring Boot](https://spring.io/projects/spring-boot) - The web framework used
 * [Heroku](https://heroku.com/) - The cloud application platform used
 * [Maven](https://maven.apache.org/) - Dependency management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
 
 ## Contributing
 
