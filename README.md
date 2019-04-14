@@ -18,7 +18,7 @@ If you need a list of conversions for all the common units of measurement for vo
 ["mile","kilometer","yard","meter","centimeter","foot","inch","millimeter"]
 ```
 
-> /api/length/mile
+> /api/length/mile _by default the it will convert 1 mile_
 ```javascript
 {
 "mile":1.0,
@@ -32,7 +32,7 @@ If you need a list of conversions for all the common units of measurement for vo
 }
 ```
 
-> /api/length/mile/1337
+> /api/length/mile/1337 _accepts custom amount_
 ```javascript
 {
 "mile":1337.0,
@@ -46,7 +46,7 @@ If you need a list of conversions for all the common units of measurement for vo
 }
 ```
 
-> api/length/mile/9000.1
+> api/length/mile/9000.1 _amount can be a decimal_
 ```javascript
 {
 "mile":9000.1,
@@ -57,6 +57,20 @@ If you need a list of conversions for all the common units of measurement for vo
 "foot":4.7520528E7,
 "inch":5.70246336E8,
 "millimeter":1.44811609E10
+}
+```
+
+>/api/length/millimeter/9.7555e-5 _supports scientific notation_
+```javascript
+{
+"mile":9.695463020509633E-5,
+"kilometer":1.56E-4,
+"yard":0.17060367454068243,
+"meter":0.156,
+"centimeter":15.6,
+"foot":0.5118110236220472,
+"inch":6.141732283464568,
+"millimeter":156.0
 }
 ```
 
