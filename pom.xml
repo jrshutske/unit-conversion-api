@@ -71,18 +71,6 @@
       <artifactId>bootstrap</artifactId>
       <version>${webjars-bootstrap.version}</version>
     </dependency>
-    <!-- Geo-Location api -->
-    <dependency>
-    <groupId>com.maxmind.geoip2</groupId>
-    <artifactId>geoip2</artifactId>
-    <version>2.12.0</version>
-  </dependency>
-  <!-- Geo-Google -->
-  <dependency>
-      <groupId>geoGoogle</groupId>
-      <artifactId>geoGoogle</artifactId>
-      <version>1.4</version>
-  </dependency>
   <dependency>
         <groupId>org.projectlombok</groupId>
         <artifactId>lombok</artifactId>
