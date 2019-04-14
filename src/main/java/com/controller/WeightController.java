@@ -32,27 +32,30 @@ import java.util.List;
 @SpringBootApplication
 public class WeightController {
 
-    public enum Units {
+    public enum units {
         stone, pound, kilogram,
         gram, milligram, ounce
     }
 
+    static final Double defaultAmount = 1.0;
+
     @GetMapping(value = "/api/weight")
     public ResponseEntity<?> weight() {
-        final List<Units> amountsArrayList = new ArrayList<>();
-        for (Units amount : Units.values()) {
-            amountsArrayList.add(amount);
-        }
-        if (amountsArrayList.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
-        } else {
-            return new ResponseEntity<>(amountsArrayList, HttpStatus.OK);
-        }
+        return new ResponseEntity<>(units.values(), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/api/weight/{unit}")
+    public ResponseEntity<?> defaultWeight(@PathVariable String unit) {
+        return convertWeight(unit, defaultAmount);
     }
 
     @GetMapping(value = "/api/weight/{unit}/{amount}")
-    public ResponseEntity<?> weight(@PathVariable String unit,
-                                    @PathVariable Double amount) {
+    public ResponseEntity<?> customWeight(@PathVariable String unit,
+                                          @PathVariable Double amount) {
+        return convertWeight(unit, amount);
+    }
+
+    public ResponseEntity<?> convertWeight(String unit, Double amount) {
         switch (unit) {
             case "stone":return convertStone(amount);
             case "pound":return convertPound(amount);
@@ -62,7 +65,6 @@ public class WeightController {
             case "ounce":return convertOunce(amount);
             default:return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
         }
-
     }
 
     public ResponseEntity<?> jsonResponse(Weight weightModel) {

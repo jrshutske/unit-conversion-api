@@ -37,22 +37,25 @@ public class VolumeController {
         fluidOunce
     }
 
+    static final Double defaultAmount = 1.0;
+
     @GetMapping(value = "/api/volume")
     public ResponseEntity<?> volume() {
-        final List<units> amountsArrayList = new ArrayList<>();
-        for (units amount : units.values()) {
-            amountsArrayList.add(amount);
-        }
-        if (amountsArrayList.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
-        } else {
-            return new ResponseEntity<>(amountsArrayList, HttpStatus.OK);
-        }
+        return new ResponseEntity<>(units.values(), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/api/volume/{unit}")
+    public ResponseEntity<?> defaultVolume(@PathVariable String unit) {
+        return convertVolume(unit, defaultAmount);
     }
 
     @GetMapping(value = "/api/volume/{unit}/{amount}")
-    public ResponseEntity<?> volume(@PathVariable String unit,
-                                    @PathVariable Double amount) {
+    public ResponseEntity<?> customVolume(@PathVariable String unit,
+                                          @PathVariable Double amount) {
+        return convertVolume(unit, amount);
+    }
+
+    public ResponseEntity<?> convertVolume(String unit, Double amount) {
         switch (unit) {
             case "gallon":return convertGallon(amount);
             case "liter":return convertLiter(amount);
@@ -63,7 +66,6 @@ public class VolumeController {
             case "fluidOunce":return convertFluidOunce(amount);
             default:return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
         }
-
     }
 
     public ResponseEntity<?> jsonResponse(Volume volumeModel) {

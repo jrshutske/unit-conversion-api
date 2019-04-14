@@ -21,22 +21,25 @@ public class LengthController {
         inch, millimeter
     }
 
+    static final Double defaultAmount = 1.0;
+
     @GetMapping(value = "/api/length")
     public ResponseEntity<?> length() {
-        final List<units> amountsArrayList = new ArrayList<>();
-        for (units amount : units.values()) {
-            amountsArrayList.add(amount);
-        }
-        if (amountsArrayList.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
-        } else {
-            return new ResponseEntity<>(amountsArrayList, HttpStatus.OK);
-        }
+        return new ResponseEntity<>(units.values(), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/api/length/{unit}")
+    public ResponseEntity<?> defaultLength(@PathVariable String unit) {
+        return convertLength(unit, defaultAmount);
     }
 
     @GetMapping(value = "/api/length/{unit}/{amount}")
-    public ResponseEntity<?> length(@PathVariable String unit,
-                                    @PathVariable Double amount) {
+    public ResponseEntity<?> customLength(@PathVariable String unit,
+                                          @PathVariable Double amount) {
+        return convertLength(unit, amount);
+    }
+
+    public ResponseEntity<?> convertLength(String unit, Double amount) {
         switch(unit) {
             case "mile":return convertMile(amount);
             case "kilometer":return convertKilometer(amount);
@@ -48,7 +51,6 @@ public class LengthController {
             case "foot":return convertFoot(amount);
             default:return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
         }
-
     }
 
     public ResponseEntity<?> jsonResponse(Length lengthModel) {
