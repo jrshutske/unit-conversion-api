@@ -80,8 +80,8 @@ mvn install
 
 ## Contributing
 
-Please us [pull_request_template.md](/docs/pull_request_template.md) when submitting a pull request.   
-Please update [timelog.md](/docs/timelog.md) after you get done working.   
+Please use the [pull_request_template.md](/docs/pull_request_template.md) when submitting a pull request.   
+Please update the [timelog.md](/docs/timelog.md) after you get done working.   
 
 
 ## Authors
