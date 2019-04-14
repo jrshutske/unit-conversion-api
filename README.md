@@ -1,6 +1,62 @@
 # unit-conversion-api
 
-An api for converting units of measurement, which can easily be deployed to Heroku.
+If you need a list of conversions for all the common units of measurement for volume, length, weight, and temperature you can use this to specify what you want to convert and how much. This way app developers don't need to build all of there own conversions by hand, effectively reducing the amount of work and thinking they need to do.
+### Use cases
+ - Scientific applications where unit conversion is necessary
+ - Cooking applications where unit conversion is necessary
+ - Used alongside geolocation applications can determine which unit to display to their users
+
+> /api
+```javascript
+["volume","length","weight","temperature"]
+```
+
+> /api/length
+```javascript
+["mile","kilometer","yard","meter","centimeter","foot","inch","millimeter"]
+```
+
+> /api/length/mile
+```javascript
+{
+"mile":1.0,
+"kilometer":1.609,
+"yard":1760.0,
+"meter":1609.344,
+"centimeter":160934.4,
+"foot":5280.0,
+"inch":63360.0,
+"millimeter":1609000.0
+}
+```
+
+> /api/length/mile/1337
+```javascript
+{
+"mile":1337.0,
+"kilometer":2151.233,
+"yard":2353120.0,
+"meter":2151692.928,
+"centimeter":2.1516929279999998E8,
+"foot":7059360.0,
+"inch":8.471232E7,
+"millimeter":2.151233E9
+}
+```
+
+>> api/length/mile/9000.1
+```javascript
+{
+"mile":9000.1,
+"kilometer":14481.1609,
+"yard":1.5840176E7,
+"meter":1.4484256934400002E7,
+"centimeter":1.44842569344E9,
+"foot":4.7520528E7,
+"inch":5.70246336E8,
+"millimeter":1.44811609E10
+}
+```
 
 ### Installing
 
