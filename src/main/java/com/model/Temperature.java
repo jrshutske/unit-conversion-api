@@ -7,15 +7,15 @@ public class Temperature {
 
     @Getter
     @Setter
-    private int fahrenheit;
+    private Double fahrenheit;
 
     @Getter
     @Setter
-    private int celsius;
+    private Double celsius;
 
     @Getter
     @Setter
-    private int kelvin;
+    private Double kelvin;
 
     public Temperature(){}
 

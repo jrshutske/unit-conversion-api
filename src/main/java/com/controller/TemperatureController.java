@@ -17,66 +17,62 @@ import java.util.List;
 @SpringBootApplication
 public class TemperatureController {
 
-    public enum Units {
+    public enum units {
         fahrenheit, celsius, kelvin
     }
 
     @GetMapping(value = "/api/temperature")
     public ResponseEntity<?> temperature() {
-        final List<Units> unitsArrayList = new ArrayList<>();
-        for (Units unit : Units.values()) {
-            unitsArrayList.add(unit);
+        final List<units> amountsArrayList = new ArrayList<>();
+        for (units amount : units.values()) {
+            amountsArrayList.add(amount);
         }
-        if (unitsArrayList.isEmpty()) {
+        if (amountsArrayList.isEmpty()) {
             return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
         } else {
-            return new ResponseEntity<>(unitsArrayList, HttpStatus.OK);
+            return new ResponseEntity<>(amountsArrayList, HttpStatus.OK);
         }
     }
 
-    @GetMapping(value = "/api/temperature/{unit}")
-    public ResponseEntity<?> volume(@PathVariable String unit) {
+    @GetMapping(value = "/api/temperature/{unit}/{amount}")
+    public ResponseEntity<?> volume(@PathVariable String unit,
+                                    @PathVariable Double amount) {
         switch (unit) {
-            case "fahrenheit": return convertFahrenheit(1);
-            case "celsius": return convertCelsius(1);
-            case "kelvin": return convertKelvin(1);
-            default:
-                return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
+            case "fahrenheit": return convertFahrenheit(amount);
+            case "celsius": return convertCelsius(amount);
+            case "kelvin": return convertKelvin(amount);
+            default:return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
         }
 
     }
 
-    public ResponseEntity<?> convertFahrenheit(int unit) {
-        Temperature temperatureModel = new Temperature();
-        temperatureModel.setFahrenheit(unit);
-        temperatureModel.setCelsius(unit);
-        temperatureModel.setKelvin(unit);
-        if (temperatureModel.getFahrenheit() != 1) {
+    public ResponseEntity<?> jsonResponse(Temperature temperatureModel) {
+        if (temperatureModel.getFahrenheit() == null) {
             return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
         } else {
             return new ResponseEntity<>(temperatureModel, HttpStatus.OK);
         }
     }
-    public ResponseEntity<?> convertCelsius(int unit) {
+
+    public ResponseEntity<?> convertFahrenheit(Double amount) {
         Temperature temperatureModel = new Temperature();
-        temperatureModel.setFahrenheit(unit);
-        temperatureModel.setCelsius(unit);
-        temperatureModel.setKelvin(unit);
-        if (temperatureModel.getCelsius() != 1) {
-            return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
-        } else {
-            return new ResponseEntity<>(temperatureModel, HttpStatus.OK);
-        }
+        temperatureModel.setFahrenheit(amount);
+        temperatureModel.setCelsius((amount-32)/1.8000);
+        temperatureModel.setKelvin((amount-32)/1.8000+273.15);
+        return jsonResponse(temperatureModel);
     }
-    public ResponseEntity<?> convertKelvin(int unit) {
+    public ResponseEntity<?> convertCelsius(Double amount) {
         Temperature temperatureModel = new Temperature();
-        temperatureModel.setFahrenheit(unit);
-        temperatureModel.setCelsius(unit);
-        temperatureModel.setKelvin(unit);
-        if (temperatureModel.getKelvin() != 1) {
-            return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
-        } else {
-            return new ResponseEntity<>(temperatureModel, HttpStatus.OK);
-        }
+        temperatureModel.setFahrenheit(amount*1.8000+32);
+        temperatureModel.setCelsius(amount);
+        temperatureModel.setKelvin(amount+273.15);
+        return jsonResponse(temperatureModel);
+    }
+    public ResponseEntity<?> convertKelvin(Double amount) {
+        Temperature temperatureModel = new Temperature();
+        temperatureModel.setFahrenheit((amount-273.15)*1.8000+32);
+        temperatureModel.setCelsius(amount-273.15);
+        temperatureModel.setKelvin(amount);
+        return jsonResponse(temperatureModel);
     }
 }
