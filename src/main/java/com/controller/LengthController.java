@@ -99,7 +99,7 @@ public class LengthController {
         return jsonResponse(lengthModel);
     }
 
-    public ResponseEntity<?> convertMeter(double amount) {
+    public ResponseEntity<?> convertMeter(Double amount) {
         Length lengthModel = new Length();
         lengthModel.setCentimeter(amount*100);
         lengthModel.setFoot(amount*3.281);
@@ -112,7 +112,7 @@ public class LengthController {
         return jsonResponse(lengthModel);
     }
 
-    public ResponseEntity<?> convertFoot(double amount) {
+    public ResponseEntity<?> convertFoot(Double amount) {
         Length lengthModel = new Length();
         lengthModel.setCentimeter(amount*30.48);
         lengthModel.setFoot(amount);

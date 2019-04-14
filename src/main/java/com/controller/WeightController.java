@@ -16,19 +16,14 @@
 
 package com.controller;
 
-import com.controller.TypeController;
 import com.model.Weight;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.lang.reflect.InvocationHandler;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,40 +39,105 @@ public class WeightController {
 
     @GetMapping(value = "/api/weight")
     public ResponseEntity<?> weight() {
-        final List<Units> unitsArrayList = new ArrayList<>();
-        for (Units unit : Units.values()) {
-            unitsArrayList.add(unit);
+        final List<Units> amountsArrayList = new ArrayList<>();
+        for (Units amount : Units.values()) {
+            amountsArrayList.add(amount);
         }
-        if (unitsArrayList.isEmpty()) {
+        if (amountsArrayList.isEmpty()) {
             return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
         } else {
-            return new ResponseEntity<>(unitsArrayList, HttpStatus.OK);
+            return new ResponseEntity<>(amountsArrayList, HttpStatus.OK);
         }
     }
 
-    @GetMapping(value = "/api/weight/{unit}")
-    public ResponseEntity<?> weight(@PathVariable String unit) {
+    @GetMapping(value = "/api/weight/{unit}/{amount}")
+    public ResponseEntity<?> weight(@PathVariable String unit,
+                                    @PathVariable Double amount) {
         switch (unit) {
-            case "stone":
-                return convertStone(1);
-            default:
-                return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
+            case "stone":return convertStone(amount);
+            case "pound":return convertPound(amount);
+            case "kilogram":return convertKilogram(amount);
+            case "gram":return convertGram(amount);
+            case "milligram":return convertMilligram(amount);
+            case "ounce":return convertOunce(amount);
+            default:return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
         }
 
     }
 
-    public ResponseEntity<?> convertStone(int unit) {
-        Weight weightModel = new Weight();
-        weightModel.setStone(unit);
-        weightModel.setPound(unit);
-        weightModel.setKilogram(unit);
-        weightModel.setGram(unit);
-        weightModel.setMilligram(unit);
-        weightModel.setOunce(unit);
-        if (weightModel.getStone() != 1) {
+    public ResponseEntity<?> jsonResponse(Weight weightModel) {
+        if (weightModel.getStone() == null) {
             return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
         } else {
             return new ResponseEntity<>(weightModel, HttpStatus.OK);
         }
     }
+
+    public ResponseEntity<?> convertStone(Double amount) {
+        Weight weightModel = new Weight();
+        weightModel.setStone(amount);
+        weightModel.setPound(amount*14);
+        weightModel.setKilogram(amount*6.35029318);
+        weightModel.setGram(amount*6350.29318);
+        weightModel.setMilligram(amount*6350293.18);
+        weightModel.setOunce(amount*224);
+        return jsonResponse(weightModel);
+
+    }
+
+    public ResponseEntity<?> convertPound(Double amount) {
+        Weight weightModel = new Weight();
+        weightModel.setStone(amount*0.07142857143);
+        weightModel.setPound(amount);
+        weightModel.setKilogram(amount*0.45359237);
+        weightModel.setGram(amount*453.59237);
+        weightModel.setMilligram(amount*453592.37);
+        weightModel.setOunce(amount*16);
+        return jsonResponse(weightModel);
+    }
+
+    public ResponseEntity<?> convertKilogram(Double amount) {
+        Weight weightModel = new Weight();
+        weightModel.setStone(amount*0.15747304442);
+        weightModel.setPound(amount*2.20462262);
+        weightModel.setKilogram(amount);
+        weightModel.setGram(amount*1000);
+        weightModel.setMilligram(amount*1000000);
+        weightModel.setOunce(amount*35.2739619);
+        return jsonResponse(weightModel);
+    }
+
+    public ResponseEntity<?> convertGram(Double amount) {
+        Weight weightModel = new Weight();
+        weightModel.setStone(amount*0.00015747304);
+        weightModel.setPound(amount*0.00220462262);
+        weightModel.setKilogram(amount*0.001);
+        weightModel.setGram(amount);
+        weightModel.setMilligram(amount*1000);
+        weightModel.setOunce(amount*0.03527396195);
+        return jsonResponse(weightModel);
+    }
+
+    public ResponseEntity<?> convertMilligram(Double amount) {
+        Weight weightModel = new Weight();
+        weightModel.setStone(amount*1.5747304e-7);
+        weightModel.setPound(amount*2.2046226e-6);
+        weightModel.setKilogram(amount*1e-6);
+        weightModel.setGram(amount*0.001);
+        weightModel.setMilligram(amount);
+        weightModel.setOunce(amount*3.5273962e-5);
+        return jsonResponse(weightModel);
+    }
+
+    public ResponseEntity<?> convertOunce(Double amount) {
+        Weight weightModel = new Weight();
+        weightModel.setStone(amount*0.00446428571);
+        weightModel.setPound(amount*0.0625);
+        weightModel.setKilogram(amount*0.02834952313);
+        weightModel.setGram(amount*28.3495231);
+        weightModel.setMilligram(amount*28349.5231);
+        weightModel.setOunce(amount);
+        return jsonResponse(weightModel);
+    }
+
 }
