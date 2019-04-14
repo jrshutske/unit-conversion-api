@@ -7,31 +7,31 @@ public class Volume {
 
     @Getter
     @Setter
-    private int gallon;
+    private Double gallon;
 
     @Getter
     @Setter
-    private int liter;
+    private Double liter;
 
     @Getter
     @Setter
-    private int quart;
+    private Double quart;
 
     @Getter
     @Setter
-    private int pint;
+    private Double pint;
 
     @Getter
     @Setter
-    private int cup;
+    private Double cup;
 
     @Getter
     @Setter
-    private int milliliter;
+    private Double milliliter;
 
     @Getter
     @Setter
-    private int fluidOunce;
+    private Double fluidOunce;
 
     public Volume(){}
 }

@@ -16,19 +16,13 @@
 
 package com.controller;
 
-import com.controller.TypeController;
 import com.model.Volume;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.lang.reflect.InvocationHandler;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +31,7 @@ import java.util.List;
 @SpringBootApplication
 public class VolumeController {
 
-    public enum Units {
+    public enum units {
         gallon, liter, quart,
         pint, cup, milliliter,
         fluidOunce
@@ -45,41 +39,122 @@ public class VolumeController {
 
     @GetMapping(value = "/api/volume")
     public ResponseEntity<?> volume() {
-        final List<Units> unitsArrayList = new ArrayList<>();
-        for (Units unit : Units.values()) {
-            unitsArrayList.add(unit);
+        final List<units> amountsArrayList = new ArrayList<>();
+        for (units amount : units.values()) {
+            amountsArrayList.add(amount);
         }
-        if (unitsArrayList.isEmpty()) {
+        if (amountsArrayList.isEmpty()) {
             return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
         } else {
-            return new ResponseEntity<>(unitsArrayList, HttpStatus.OK);
+            return new ResponseEntity<>(amountsArrayList, HttpStatus.OK);
         }
     }
 
-    @GetMapping(value = "/api/volume/{unit}")
-    public ResponseEntity<?> volume(@PathVariable String unit) {
+    @GetMapping(value = "/api/volume/{unit}/{amount}")
+    public ResponseEntity<?> volume(@PathVariable String unit,
+                                    @PathVariable Double amount) {
         switch (unit) {
-            case "gallon":
-                return convertGallon(1);
-            default:
-                return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
+            case "gallon":return convertGallon(amount);
+            case "liter":return convertLiter(amount);
+            case "quart":return convertQuart(amount);
+            case "pint":return convertPint(amount);
+            case "cup":return convertCup(amount);
+            case "milliliter":return convertMilliliter(amount);
+            case "fluidOunce":return convertFluidOunce(amount);
+            default:return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
         }
 
     }
 
-    public ResponseEntity<?> convertGallon(int unit) {
-        Volume volumeModel = new Volume();
-        volumeModel.setGallon(unit);
-        volumeModel.setLiter(unit);
-        volumeModel.setQuart(unit);
-        volumeModel.setPint(unit);
-        volumeModel.setCup(unit);
-        volumeModel.setMilliliter(unit);
-        volumeModel.setFluidOunce(unit);
-        if (volumeModel.getGallon() != 1) {
+    public ResponseEntity<?> jsonResponse(Volume volumeModel) {
+        if (volumeModel.getGallon() == null) {
             return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
         } else {
             return new ResponseEntity<>(volumeModel, HttpStatus.OK);
         }
+    }
+
+    public ResponseEntity<?> convertGallon(Double amount) {
+        Volume volumeModel = new Volume();
+        volumeModel.setGallon(amount);
+        volumeModel.setLiter(amount*3.78541178);
+        volumeModel.setQuart(amount*4);
+        volumeModel.setPint(amount*7.99999954); //really?
+        volumeModel.setCup(amount*16.004715);
+        volumeModel.setMilliliter(amount*3785.41178);
+        volumeModel.setFluidOunce(amount*128.000128);
+        return jsonResponse(volumeModel);
+    }
+
+    public ResponseEntity<?> convertLiter(Double amount) {
+        Volume volumeModel = new Volume();
+        volumeModel.setGallon(amount*0.26417205236);
+        volumeModel.setLiter(amount);
+        volumeModel.setQuart(amount*1.05668821);
+        volumeModel.setPint(amount*2.1133763);
+        volumeModel.setCup(amount*4.2279984);
+        volumeModel.setMilliliter(amount*1000);
+        volumeModel.setFluidOunce(amount*33.8140565);
+        return jsonResponse(volumeModel);
+    }
+
+    public ResponseEntity<?> convertQuart(Double amount) {
+        Volume volumeModel = new Volume();
+        volumeModel.setGallon(amount*0.25);
+        volumeModel.setLiter(amount*0.946352946);
+        volumeModel.setQuart(amount);
+        volumeModel.setPint(amount*1.99999989);
+        volumeModel.setCup(amount*4.00117874);
+        volumeModel.setMilliliter(amount*946.352946);
+        volumeModel.setFluidOunce(amount*32.000032);
+        return jsonResponse(volumeModel);
+    }
+
+    public ResponseEntity<?> convertPint(Double amount) {
+        Volume volumeModel = new Volume();
+        volumeModel.setGallon(amount*0.12500000713);
+        volumeModel.setLiter(amount*0.4731765);
+        volumeModel.setQuart(amount*0.50000002853);
+        volumeModel.setPint(amount);
+        volumeModel.setCup(amount*2.00058948);
+        volumeModel.setMilliliter(amount*473.1765);
+        volumeModel.setFluidOunce(amount*16.0000169);
+        return jsonResponse(volumeModel);
+    }
+
+    public ResponseEntity<?> convertCup(Double amount) {
+        Volume volumeModel = new Volume();
+        volumeModel.setGallon(amount*0.0624815876);
+        volumeModel.setLiter(amount*0.236518538);
+        volumeModel.setQuart(amount*0.24992635042);
+        volumeModel.setPint(amount*0.49985267231);
+        volumeModel.setCup(amount);
+        volumeModel.setMilliliter(amount*236.518538);
+        volumeModel.setFluidOunce(amount*7.99765121);
+        return jsonResponse(volumeModel);
+    }
+
+    public ResponseEntity<?> convertMilliliter(Double amount) {
+        Volume volumeModel = new Volume();
+        volumeModel.setGallon(amount*0.00026417205);
+        volumeModel.setLiter(amount*0.001);
+        volumeModel.setQuart(amount*0.00105668821);
+        volumeModel.setPint(amount*0.0021133763);
+        volumeModel.setCup(amount*0.0042279984);
+        volumeModel.setMilliliter(amount);
+        volumeModel.setFluidOunce(amount*0.0338140565);
+        return jsonResponse(volumeModel);
+    }
+
+    public ResponseEntity<?> convertFluidOunce(Double amount) {
+        Volume volumeModel = new Volume();
+        volumeModel.setGallon(amount*0.00781249219);
+        volumeModel.setLiter(amount*0.0295735);
+        volumeModel.setQuart(amount*0.03124996876);
+        volumeModel.setPint(amount*0.06249993396);
+        volumeModel.setCup(amount*0.12503671065);
+        volumeModel.setMilliliter(amount*29.5735);
+        volumeModel.setFluidOunce(amount);
+        return jsonResponse(volumeModel);
     }
 }
