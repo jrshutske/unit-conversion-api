@@ -7,27 +7,27 @@ public class Weight {
 
     @Getter
     @Setter
-    private int stone;
+    private Double stone;
 
     @Getter
     @Setter
-    private int pound;
+    private Double pound;
 
     @Getter
     @Setter
-    private int kilogram;
+    private Double kilogram;
 
     @Getter
     @Setter
-    private int gram;
+    private Double gram;
 
     @Getter
     @Setter
-    private int ounce;
+    private Double ounce;
 
     @Getter
     @Setter
-    private int milligram;
+    private Double milligram;
 
     public Weight(){}
 }
