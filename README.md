@@ -108,7 +108,7 @@ Please update the [timelog.md](/docs/timelog.md) after you get done working.
 ## Authors
 
 * **Jack** - [jrshutske](https://github.com/jrshutske)
-* **Norm** - [Normando](https://github.com/Normnondo)
+* **Norm** - [Normnondo](https://github.com/Normnondo)
 * **Ciaran** - [CChapman03](https://github.com/CChapman03)
 
 See also the list of [contributors](https://github.com/jrshutske/unit-conversion-api/graphs/contributors) who participated in this project.
