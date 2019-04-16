@@ -49,7 +49,6 @@ If you need a list of conversions for all the common units of measurement for vo
 "inch":8.471232E7,
 "millimeter":2.151233E9
 }
-```
 
 > _amount can be a decimal_        
 > api/length/mile/9000.1 
