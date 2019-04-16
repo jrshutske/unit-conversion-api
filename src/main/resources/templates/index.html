@@ -30,7 +30,9 @@
     </div>
     <div class="col-md-6">
       <h3>Convert</h3>
-      <p>This is where we should put a potential form.</p>
+      <form id="form">
+
+      </form>
     </div>
   </div>
   <div class="alert alert-light text-center" role="alert">
@@ -39,5 +41,43 @@
        https://java-unit-conversion.herokuapp.com/api/length/kilometer/1337</a>
   </div>
 </div>
+
+<script>
+    const getLatLng = () => {
+
+      let postalcode = 53704;
+
+      let xhr = new XMLHttpRequest();
+
+      let url = 'https://java-unit-conversion.herokuapp.com/api';
+
+      xhr.open("get", url);
+
+      xhr.onreadystatechange = () => {
+
+        if(xhr.readyState == 4) {
+
+          var dropdown = document.createElement("select");
+
+          for (var unit in xhr.responseText)
+          {
+            var option = document.createElement("option");
+            option.text = unit;
+            option.value = unit;
+            dropdown.appendChild(option);
+          }
+
+          document.getElementById("form").appendChild(dropdown);
+        }
+      }
+
+      xhr.send(null);
+
+    }
+
+    getLatLng();
+
+</script>
+
 </body>
 </html>
