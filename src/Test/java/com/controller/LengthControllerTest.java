@@ -279,5 +279,4 @@ public class LengthControllerTest {
         assertEquals(actualYard, expectedYard);
 
     }
-
 }
