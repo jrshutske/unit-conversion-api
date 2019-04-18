@@ -1,4 +1,4 @@
-# unit-conversion-api
+# Unit Conversion API
 
 If you need a list of conversions for all the common units of measurement for volume, length, weight, and temperature you can use this to specify what you want to convert and how much. This way app developers don't need to build all of there own conversions by hand, effectively reducing the amount of work and thinking they need to do.
 
