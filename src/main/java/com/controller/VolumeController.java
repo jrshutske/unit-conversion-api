@@ -23,8 +23,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import java.util.ArrayList;
-import java.util.List;
 
 
 @Controller
@@ -81,7 +79,7 @@ public class VolumeController {
         volumeModel.setGallon(amount);
         volumeModel.setLiter(amount*3.78541178);
         volumeModel.setQuart(amount*4);
-        volumeModel.setPint(amount*7.99999954); //really?
+        volumeModel.setPint(amount*7.99999954);
         volumeModel.setCup(amount*16.004715);
         volumeModel.setMilliliter(amount*3785.41178);
         volumeModel.setFluidOunce(amount*128.000128);
