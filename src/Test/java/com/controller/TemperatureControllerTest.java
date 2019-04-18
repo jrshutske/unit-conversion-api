@@ -7,7 +7,6 @@ import static org.junit.Assert.assertEquals;
 
 public class TemperatureControllerTest {
 
-
     @Test
     public void convertFahrenheitTest() {
         TemperatureController tc = new TemperatureController();
@@ -24,7 +23,6 @@ public class TemperatureControllerTest {
         assertEquals(actualFahrenheit, expectedFahrenheit);
         assertEquals(actualCelsius, expectedCelsius);
         assertEquals(actualKelvin, expectedKelvin);
-
     }
 
     @Test
@@ -43,7 +41,6 @@ public class TemperatureControllerTest {
         assertEquals(actualFahrenheit, expectedFahrenheit);
         assertEquals(actualCelsius, expectedCelsius);
         assertEquals(actualKelvin, expectedKelvin);
-
     }
 
     @Test
@@ -62,7 +59,5 @@ public class TemperatureControllerTest {
         assertEquals(actualFahrenheit, expectedFahrenheit);
         assertEquals(actualCelsius, expectedCelsius);
         assertEquals(actualKelvin, expectedKelvin);
-
     }
-
 }
