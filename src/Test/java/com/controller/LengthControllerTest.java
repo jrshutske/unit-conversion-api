@@ -5,9 +5,15 @@ import org.junit.Test;
 import org.springframework.http.ResponseEntity;
 import static org.junit.Assert.assertEquals;
 
+/**
+ * The type Length controller test. This is a unit test for the LengthController class.
+ */
 public class LengthControllerTest {
 
 
+    /**
+     * Convert mile test.
+     */
     @Test
     public void convertMileTest() {
         LengthController lc = new LengthController();
@@ -42,6 +48,9 @@ public class LengthControllerTest {
 
     }
 
+    /**
+     * Convert kilometer test.
+     */
     @Test
     public void convertKilometerTest() {
         LengthController lc = new LengthController();
@@ -76,6 +85,9 @@ public class LengthControllerTest {
 
     }
 
+    /**
+     * Convert yard test.
+     */
     @Test
     public void convertYardTest() {
         LengthController lc = new LengthController();
@@ -110,6 +122,9 @@ public class LengthControllerTest {
 
     }
 
+    /**
+     * Convert meter test.
+     */
     @Test
     public void convertMeterTest() {
         LengthController lc = new LengthController();
@@ -144,6 +159,9 @@ public class LengthControllerTest {
 
     }
 
+    /**
+     * Convert foot test.
+     */
     @Test
     public void convertFootTest() {
         LengthController lc = new LengthController();
@@ -178,6 +196,9 @@ public class LengthControllerTest {
 
     }
 
+    /**
+     * Convert inch test.
+     */
     @Test
     public void convertInchTest() {
         LengthController lc = new LengthController();
@@ -212,6 +233,9 @@ public class LengthControllerTest {
 
     }
 
+    /**
+     * Convert centimeter test.
+     */
     @Test
     public void convertCentimeterTest() {
         LengthController lc = new LengthController();
@@ -246,6 +270,9 @@ public class LengthControllerTest {
 
     }
 
+    /**
+     * Convert millimeter test.
+     */
     @Test
     public void convertMillimeterTest() {
         LengthController lc = new LengthController();
