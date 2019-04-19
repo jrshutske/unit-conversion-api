@@ -5,9 +5,15 @@ import org.junit.Test;
 import org.springframework.http.ResponseEntity;
 import static org.junit.Assert.assertEquals;
 
+/**
+ * The type Weight controller test. This is a unit test for the WeightController class.
+ */
 public class WeightControllerTest {
 
 
+    /**
+     * Convert stone test.
+     */
     @Test
     public void convertStoneTest() {
         WeightController wc = new WeightController();
@@ -36,6 +42,9 @@ public class WeightControllerTest {
 
     }
 
+    /**
+     * Convert pound test.
+     */
     @Test
     public void convertPoundTest() {
         WeightController wc = new WeightController();
@@ -64,6 +73,9 @@ public class WeightControllerTest {
 
     }
 
+    /**
+     * Convert kilogram test.
+     */
     @Test
     public void convertKilogramTest() {
         WeightController wc = new WeightController();
@@ -92,6 +104,9 @@ public class WeightControllerTest {
 
     }
 
+    /**
+     * Convert gram test.
+     */
     @Test
     public void convertGramTest() {
         WeightController wc = new WeightController();
@@ -120,6 +135,9 @@ public class WeightControllerTest {
 
     }
 
+    /**
+     * Convert milligram test.
+     */
     @Test
     public void convertMilligramTest() {
         WeightController wc = new WeightController();
@@ -148,6 +166,9 @@ public class WeightControllerTest {
 
     }
 
+    /**
+     * Convert ounce test.
+     */
     @Test
     public void convertOunceTest() {
         WeightController wc = new WeightController();

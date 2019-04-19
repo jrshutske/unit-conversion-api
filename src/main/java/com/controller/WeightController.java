@@ -24,37 +24,69 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.ArrayList;
-import java.util.List;
 
-
+/**
+ * The type Weight controller. This class accepts a weight measurement in any of 6 different units, and converts
+ * that measurement to the other 5 units and returns it to the user.
+ */
 @Controller
 @SpringBootApplication
 public class WeightController {
 
+    /**
+     * The enum Units. For weight measurement conversion.
+     */
     public enum units {
+
         stone, pound, kilogram,
         gram, milligram, ounce
+
     }
 
     static final Double defaultAmount = 1.0;
 
+    /**
+     * Weight response entity. Shows that the user has chosen 'weight' as their type of conversion.
+     *
+     * @return the response entity
+     */
     @GetMapping(value = "/api/weight")
     public ResponseEntity<?> weight() {
         return new ResponseEntity<>(units.values(), HttpStatus.OK);
     }
 
+    /**
+     * Default weight response entity. This receives the users choice of unit to convert.
+     *
+     * @param unit the unit
+     * @return the response entity
+     */
     @GetMapping(value = "/api/weight/{unit}")
     public ResponseEntity<?> defaultWeight(@PathVariable String unit) {
         return convertWeight(unit, defaultAmount);
     }
 
+    /**
+     * Custom weight response entity. This receives the unit and the numerical measurement they wish to convert.
+     *
+     * @param unit   the unit
+     * @param amount the amount
+     * @return the response entity
+     */
     @GetMapping(value = "/api/weight/{unit}/{amount}")
     public ResponseEntity<?> customWeight(@PathVariable String unit,
                                           @PathVariable Double amount) {
         return convertWeight(unit, amount);
     }
 
+    /**
+     * Convert weight response entity. This switch statement determines which method to call based on what unit
+     * the user would like to convert.
+     *
+     * @param unit   the unit
+     * @param amount the amount
+     * @return the response entity
+     */
     public ResponseEntity<?> convertWeight(String unit, Double amount) {
         switch (unit) {
             case "stone":return convertStone(amount);
@@ -67,6 +99,13 @@ public class WeightController {
         }
     }
 
+    /**
+     * Json response response entity. This returns an error message if no value was entered, or the converted
+     * measurements.
+     *
+     * @param weightModel the weight model
+     * @return the response entity
+     */
     public ResponseEntity<?> jsonResponse(Weight weightModel) {
         if (weightModel.getStone() == null) {
             return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
@@ -75,6 +114,12 @@ public class WeightController {
         }
     }
 
+    /**
+     * Convert stone response entity. This method converts the value from stone to 5 other units of weight.
+     *
+     * @param amount the amount
+     * @return the response entity
+     */
     public ResponseEntity<?> convertStone(Double amount) {
         Weight weightModel = new Weight();
         weightModel.setStone(amount);
@@ -87,6 +132,12 @@ public class WeightController {
 
     }
 
+    /**
+     * Convert pound response entity. This method converts the value from pounds to 5 other units of weight.
+     *
+     * @param amount the amount
+     * @return the response entity
+     */
     public ResponseEntity<?> convertPound(Double amount) {
         Weight weightModel = new Weight();
         weightModel.setStone(amount*0.07142857143);
@@ -98,6 +149,12 @@ public class WeightController {
         return jsonResponse(weightModel);
     }
 
+    /**
+     * Convert kilogram response entity. This method converts the value from kilograms to 5 other units of weight.
+     *
+     * @param amount the amount
+     * @return the response entity
+     */
     public ResponseEntity<?> convertKilogram(Double amount) {
         Weight weightModel = new Weight();
         weightModel.setStone(amount*0.15747304442);
@@ -109,6 +166,12 @@ public class WeightController {
         return jsonResponse(weightModel);
     }
 
+    /**
+     * Convert gram response entity. This method converts the value from grams to 5 other units of weight.
+     *
+     * @param amount the amount
+     * @return the response entity
+     */
     public ResponseEntity<?> convertGram(Double amount) {
         Weight weightModel = new Weight();
         weightModel.setStone(amount*0.00015747304);
@@ -120,6 +183,12 @@ public class WeightController {
         return jsonResponse(weightModel);
     }
 
+    /**
+     * Convert milligram response entity. This method converts the value from milligrams to 5 other units of weight.
+     *
+     * @param amount the amount
+     * @return the response entity
+     */
     public ResponseEntity<?> convertMilligram(Double amount) {
         Weight weightModel = new Weight();
         weightModel.setStone(amount*1.5747304e-7);
@@ -131,6 +200,12 @@ public class WeightController {
         return jsonResponse(weightModel);
     }
 
+    /**
+     * Convert ounce response entity. This method converts the value from ounces to 5 other units of weight.
+     *
+     * @param amount the amount
+     * @return the response entity
+     */
     public ResponseEntity<?> convertOunce(Double amount) {
         Weight weightModel = new Weight();
         weightModel.setStone(amount*0.00446428571);
