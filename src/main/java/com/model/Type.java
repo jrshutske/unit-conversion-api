@@ -3,6 +3,9 @@ package com.model;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * The type Type.
+ */
 public class Type {
 
     @Getter
@@ -21,5 +24,8 @@ public class Type {
     @Setter
     private int weight;
 
+    /**
+     * Instantiates a new Type.
+     */
     public Type(){}
 }

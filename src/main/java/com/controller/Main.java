@@ -16,26 +16,34 @@
 
 package com.controller;
 
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
-
+/**
+ * The type Main. Starts the application.
+ */
 @Controller
 @SpringBootApplication
 public class Main {
 
+  /**
+   * The entry point of application. Receives the arguments from the user.
+   *
+   * @param args the input arguments
+   * @throws Exception the exception
+   */
   public static void main(String[] args) throws Exception {
     SpringApplication.run(Main.class, args);
   }
 
+  /**
+   * Index string. Sends arguments to appropriate controller class.
+   *
+   * @return the string
+   */
   @RequestMapping("/")
   String index() {
     return "index";
