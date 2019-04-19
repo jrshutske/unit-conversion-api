@@ -3,6 +3,9 @@ package com.model;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * The type Volume.
+ */
 public class Volume {
 
     @Getter
@@ -33,5 +36,8 @@ public class Volume {
     @Setter
     private Double fluidOunce;
 
+    /**
+     * Instantiates a new Volume.
+     */
     public Volume(){}
 }
