@@ -67,8 +67,7 @@
     var btn_submit = document.getElementById("btn_submit");
     var output = document.getElementById("output");
 
-    var url = "https://java-unit-conversion.herokuapp.com/api"
-
+    var url = "https://java-unit-conversion.herokuapp.com/api";
 
     const getUnitType = () => {
 
@@ -89,7 +88,7 @@
             for (var unit in obj) {
               var option = document.createElement("option");
               option.text = obj[unit];
-              //console.log(unit);
+              //console.log("api returns: " + unit);
               option.value = obj[unit];
               dropdown_type.appendChild(option);
             }
@@ -123,7 +122,7 @@
             {
               var option = document.createElement("option");
               option.text = obj[unit];
-              //console.log(unit);
+              //console.log("api/" + dropdown_type.value + " returns: " + unit);
               option.value = obj[unit];
               //dropdown_unit_1.appendChild(option);
               dropdown_unit_2.appendChild(option);
@@ -139,10 +138,10 @@
     const gen_output = () => {
 
       let xhr = new XMLHttpRequest();
-      let url2 = url + '/' + dropdown_type.value + '/' + dropdown_unit_1.value + '/' + parseFloat(txt_unit_1.text);
+      let url2 = url + '/' + dropdown_type.value + '/' + dropdown_unit_1.value + '/' + parseFloat(txt_unit_1.value);
       //let url = 'localhost:5000/api';
 
-      var out_text = "\n";
+      var out_text = document.createElement("ul");
 
       xhr.open("get", url2, true);
       xhr.withCredentials = true;
@@ -154,7 +153,7 @@
 
             var obj = JSON.parse(xhr.responseText);
 
-            console.log(obj)
+            //console.log("api/" + dropdown_type.value + "/" + dropdown_unit_1.value + "/" + parseFloat(txt_unit_1.value) +  " returns: " + obj);
 
             for (var key in obj)
             {
@@ -164,18 +163,26 @@
               var val = parseFloat(obj[key]);
 
               console.log(key + " : " + val);
-              out_text += val + " " + unit + "\n";
+
+              var li = document.createElement("li");
+              li.innerText = val + " " + unit;
+              out_text.appendChild(li);
             }
+
+            var div = document.createElement("div");
+
+            var p = document.createElement("p");
+            p.innerText = txt_unit_1.value + " " + dropdown_unit_1.value + " is equal to: ";
+
+            div.appendChild(p);
+            div.appendChild(out_text);
+
+            output.innerHTML = div.innerHTML;
           }
         }
 
         xhr.send();
       }
-
-      var h4 = document.createElement("h4");
-      h4.text = txt_unit_1.text + " " + dropdown_unit_1.text + " is equal to: " + out_text;
-
-      output.appendChild(h4);
     }
 
     getUnitType();
