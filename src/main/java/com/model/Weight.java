@@ -3,6 +3,9 @@ package com.model;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * The type Weight.
+ */
 public class Weight {
 
     @Getter
@@ -29,5 +32,8 @@ public class Weight {
     @Setter
     private Double milligram;
 
+    /**
+     * Instantiates a new Weight.
+     */
     public Weight(){}
 }
