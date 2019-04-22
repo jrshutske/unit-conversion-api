@@ -2,7 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'index')}">
 
 <body class="bg-dark">
-
 <div class="jumbotron text-center bg-light text-dark">
   <div class="container">
     <i class="fas fa-vial fa-10x text-dark"></i>
@@ -30,7 +29,22 @@
     </div>
     <div class="col-md-6">
       <h3>Convert</h3>
-      <p>This is where we should put a potential form.</p>
+      <form id="convertForm">
+        <div class="form-group">
+          <select class="form-control" id="typeInput">
+            <option value="" selected disabled hidden>Select Type</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <select class="form-control" id="unitInput">
+            <option value="" selected disabled hidden>Select Unit</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <input value="1" type="number" class="form-control" id="numberInput" aria-describedby="number" placeholder="Value">
+        </div>
+        <button disabled class="btn btn-secondary" id="go">Go</button>
+      </form>
     </div>
   </div>
   <div class="alert alert-light text-center" role="alert">
@@ -39,5 +53,46 @@
        https://java-unit-conversion.herokuapp.com/api/length/kilometer/1337</a>
   </div>
 </div>
+<script th:inline="javascript">
+
+  const getType = () => {
+    fetch(`https://java-unit-conversion.herokuapp.com/api/`)
+      .then(response => response.json())
+      .then(types => {
+        let typeInput = document.querySelector("#typeInput");
+        typeInput.addEventListener("change", (e) => getUnit(e));
+        types.forEach(type => {
+          let option = document.createElement("option");
+          option.innerHTML = type;
+          typeInput.appendChild(option);
+        })
+      })
+  }
+
+  const getUnit = (e) => {
+    fetch(`https://java-unit-conversion.herokuapp.com/api/${e.target.value}`)
+      .then(response => response.json())
+      .then(units => {
+        let unitInput = document.querySelector("#unitInput");
+        unitInput.innerHTML = "<option value=\'\' selected disabled hidden>Select Unit</option>";
+        unitInput.addEventListener("change", submitButton);
+        units.forEach(unit => {
+          let option = document.createElement("option");
+          option.innerHTML = unit;
+          unitInput.appendChild(option);
+        })
+    })
+  }
+
+  const submitButton = () => {
+    document.querySelector("#go").removeAttribute("disabled");
+    let type = document.querySelector("#typeInput").value;
+    let unit = document.querySelector("#unitInput").value;
+    let number = document.querySelector("#numberInput").value;
+    document.querySelector("#convertForm").setAttribute("action",
+            ` https://java-unit-conversion.herokuapp.com/api/${type}/${unit}/${number}`);
+  }
+  getType();
+</script>
 </body>
 </html>
