@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'index')}">
 
-<body class="bg-dark">
+<body class="bg-dark" onload="getUnits('volume')">
 
 <div class="jumbotron text-center bg-light text-dark">
   <div class="container">
@@ -29,24 +29,25 @@
       </ul>
     </div>
     <div class="col-md-6">
-      <h3>Convert</h3>
+      <h3 style="text-align: center">Convert Units!</h3>
+      <br>
       <form id="form">
-        <div class="form-control">
-          <select id="sel_type" onchange="getUnits()"></select>
+        <div class="form-group">
+          <label for="sel_type">Unit Type: </label>
+          <select id="sel_type" class="form-control" onchange="getUnits(this.value)"></select>
         </div>
-        Convert
-        <div id="div_unit_1" class="form-control">
-          <input id="txt_unit_val_1" type="text" />
-          <select id="sel_unit_1"></select>
+        <div id="div_unit_1" class="form-group">
+          <label for="txt_unit_val_1">Convert: </label>
+          <input id="txt_unit_val_1" class="form-control mb-2" type="text" />
+          <select id="sel_unit_1" class="form-control"></select>
         </div>
-         to
-        <div id="div_unit_2" class="form-control">
-          <!--<input id="txt_unit_val_2" type="text" />-->
-          <select id="sel_unit_2"></select>
+        <div id="div_unit_2" class="form-group">
+          <label for="sel_unit_2">To: </label>
+          <select id="sel_unit_2" class="form-control"></select>
         </div>
-
-        <input id="btn_submit" type="button" value="Convert" onclick="gen_output();" />
-
+        <div class="row justify-content-center">
+          <input id="btn_submit" class="btn btn-primary mb-4" type="button" value="Convert" onclick="gen_output();" />
+        </div>
         <div id="output">
         </div>
       </form>
@@ -60,6 +61,7 @@
 </div>
 
 <script>
+
     var dropdown_type = document.getElementById("sel_type");
     var dropdown_unit_1 = document.getElementById("sel_unit_1");
     var dropdown_unit_2 = document.getElementById("sel_unit_2");
@@ -69,9 +71,13 @@
 
     var url = "https://java-unit-conversion.herokuapp.com/api";
 
-    const getUnitType = () => {
+    getUnitType();
+    dropdown_type.focus();
+    //getUnits();
 
-      let xhr = new XMLHttpRequest();
+    function getUnitType() {
+
+      var xhr = new XMLHttpRequest();
       //let url = 'localhost:5000/api';
 
       xhr.open("get", url, true);
@@ -79,9 +85,9 @@
 
 
       if (xhr) {
-        xhr.onreadystatechange = () => {
+        xhr.onreadystatechange = function() {
 
-          if (xhr.readyState == 4) {
+          if (xhr.readyState === 4) {
 
             var obj = JSON.parse(xhr.responseText);
 
@@ -93,16 +99,23 @@
               dropdown_type.appendChild(option);
             }
           }
-        }
+        };
 
         xhr.send();
       }
     }
 
-    const getUnits = () => {
+    function getUnits(type) {
 
-      let xhr = new XMLHttpRequest();
-      let url2 = url + '/' + dropdown_type.value;
+      var xhr = new XMLHttpRequest();
+
+      var url2 = url + '/' + type;
+
+      if (dropdown_type.value === undefined)
+      {
+        url2 = url + "/volume";
+      }
+
       //let url = 'localhost:5000/api';
 
       xhr.open("get", url2, true);
@@ -112,9 +125,9 @@
       dropdown_unit_2.innerHTML = "";
 
       if (xhr) {
-        xhr.onreadystatechange = () => {
+        xhr.onreadystatechange = function() {
 
-          if (xhr.readyState == 4) {
+          if (xhr.readyState === 4) {
 
             var obj = JSON.parse(xhr.responseText);
 
@@ -122,70 +135,112 @@
             {
               var option = document.createElement("option");
               option.text = obj[unit];
-              //console.log("api/" + dropdown_type.value + " returns: " + unit);
               option.value = obj[unit];
-              //dropdown_unit_1.appendChild(option);
               dropdown_unit_2.appendChild(option);
               dropdown_unit_1.innerHTML = dropdown_unit_2.innerHTML;
             }
           }
-        }
+        };
 
         xhr.send();
       }
     }
 
-    const gen_output = () => {
+    function gen_output() {
 
-      let xhr = new XMLHttpRequest();
-      let url2 = url + '/' + dropdown_type.value + '/' + dropdown_unit_1.value + '/' + parseFloat(txt_unit_1.value);
+      var xhr = new XMLHttpRequest();
+      var url2 = url + '/' + dropdown_type.value + '/' + dropdown_unit_1.value + '/' + parseFloat(txt_unit_1.value);
       //let url = 'localhost:5000/api';
 
-      var out_text = document.createElement("ul");
+      var out_text = document.createElement("span");
 
       xhr.open("get", url2, true);
       xhr.withCredentials = true;
 
       if (xhr) {
-        xhr.onreadystatechange = () => {
+        xhr.onreadystatechange = function() {
 
-          if (xhr.readyState == 4) {
+          if (xhr.readyState === 4) {
 
             var obj = JSON.parse(xhr.responseText);
 
-            //console.log("api/" + dropdown_type.value + "/" + dropdown_unit_1.value + "/" + parseFloat(txt_unit_1.value) +  " returns: " + obj);
-
             for (var key in obj)
             {
-              var first = key.charAt(0).toUpperCase();
-              var unit = key.replace(key.charAt(0), first) + "s";
+              if (key === dropdown_unit_2.value)
+              {
+                var unitText = dropdown_unit_2.value.replace(dropdown_unit_2.value.charAt(0), dropdown_unit_2.value.charAt(0).toUpperCase());
 
-              var val = parseFloat(obj[key]);
+                if (parseFloat(obj[key]) > 1)
+                {
+                  switch (dropdown_unit_2.value) {
+                    case "foot":
+                      unitText = "Feet";
+                      break;
+                    case "inch":
+                      unitText += "es";
+                      break;
+                    case "celsius":
+                      unitText += "";
+                      break;
+                    case "fahrenheit":
+                      unitText += "";
+                      break;
+                    case "kelvin":
+                      unitText += "";
+                      break;
+                    default:
+                      unitText += "s";
+                      break;
+                  }
+                }
 
-              console.log(key + " : " + val);
+                var val = parseFloat(obj[key]).toFixed(4);
 
-              var li = document.createElement("li");
-              li.innerText = val + " " + unit;
-              out_text.appendChild(li);
+                out_text.innerText = val + " " + unitText;
+              }
             }
 
             var div = document.createElement("div");
+            var h4 = document.createElement("h4");
+            var unitText = dropdown_unit_1.value.replace(dropdown_unit_1.value.charAt(0), dropdown_unit_1.value.charAt(0).toUpperCase());
 
-            var p = document.createElement("p");
-            p.innerText = txt_unit_1.value + " " + dropdown_unit_1.value + " is equal to: ";
+            if (parseFloat(txt_unit_1.value) > 1)
+            {
+              switch (dropdown_unit_1.value) {
+                case "foot":
+                  unitText = "Feet";
+                  break;
+                case "inch":
+                  unitText += "es";
+                  break;
+                case "celsius":
+                  unitText += "";
+                  break;
+                case "fahrenheit":
+                  unitText += "";
+                  break;
+                case "kelvin":
+                  unitText += "";
+                  break;
+                default:
+                  unitText += "s";
+                  break;
+              }
+            }
 
-            div.appendChild(p);
-            div.appendChild(out_text);
+            h4.innerText = txt_unit_1.value + " " + unitText + " is equal to: " + out_text.innerText;
+            h4.style = "text-align: center;";
+
+            div.appendChild(h4);
 
             output.innerHTML = div.innerHTML;
           }
-        }
+        };
 
         xhr.send();
       }
     }
 
-    getUnitType();
 </script>
 
 </body>
