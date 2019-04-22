@@ -9,10 +9,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 
+/**
+ * The type Length controller. This class accepts a length measurement in any of 8 different units, and converts
+ * that measurement to the other 7 units and returns it to the user.
+ */
 @Controller
 @SpringBootApplication
 public class LengthController {
 
+    /**
+     * The enum Units. For length measurement conversion.
+     */
     public enum units {
         mile, kilometer, yard,
         meter, centimeter, foot,
@@ -21,22 +28,48 @@ public class LengthController {
 
     static final Double defaultAmount = 1.0;
 
+    /**
+     * Length response entity. Shows that the user has chosen 'length' as their type of conversion.
+     *
+     * @return the response entity
+     */
     @GetMapping(value = "/api/length")
     public ResponseEntity<?> length() {
         return new ResponseEntity<>(units.values(), HttpStatus.OK);
     }
 
+    /**
+     * Default length response entity. This receives the users choice of unit to convert.
+     *
+     * @param unit the unit
+     * @return the response entity
+     */
     @GetMapping(value = "/api/length/{unit}")
     public ResponseEntity<?> defaultLength(@PathVariable String unit) {
         return convertLength(unit, defaultAmount);
     }
 
+    /**
+     * Custom length response entity. This receives the unit and the numerical measurement they wish to convert.
+     *
+     * @param unit   the unit
+     * @param amount the amount
+     * @return the response entity
+     */
     @GetMapping(value = "/api/length/{unit}/{amount}")
     public ResponseEntity<?> customLength(@PathVariable String unit,
                                           @PathVariable Double amount) {
         return convertLength(unit, amount);
     }
 
+    /**
+     * Convert length response entity. This switch statement determines which method to call based on what unit
+     * the user would like to convert.
+     *
+     * @param unit   the unit
+     * @param amount the amount
+     * @return the response entity
+     */
     public ResponseEntity<?> convertLength(String unit, Double amount) {
         switch(unit) {
             case "mile":return convertMile(amount);
@@ -51,6 +84,12 @@ public class LengthController {
         }
     }
 
+    /**
+     * Json response response entity. This returns an error message if no value was entered.
+     *
+     * @param lengthModel the length model
+     * @return the response entity
+     */
     public ResponseEntity<?> jsonResponse(Length lengthModel) {
         if (lengthModel.getMile() == null) {
             return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
@@ -59,6 +98,12 @@ public class LengthController {
         }
     }
 
+    /**
+     * Convert mile response entity. This method converts the value from miles to 7 other units of length.
+     *
+     * @param amount the amount
+     * @return the response entity
+     */
     public ResponseEntity<?> convertMile(Double amount) {
         Length lengthModel = new Length();
         lengthModel.setCentimeter(amount*160934.4);
@@ -73,6 +118,12 @@ public class LengthController {
     }
 
 
+    /**
+     * Convert kilometer response entity. This method converts the value from kilometers to 7 other units of length.
+     *
+     * @param amount the amount
+     * @return the response entity
+     */
     public ResponseEntity<?> convertKilometer(Double amount) {
         Length lengthModel = new Length();
         lengthModel.setCentimeter(amount*100000);
@@ -86,6 +137,12 @@ public class LengthController {
         return jsonResponse(lengthModel);
     }
 
+    /**
+     * Convert yard response entity. This method converts the value from yards to 7 other units of length.
+     *
+     * @param amount the amount
+     * @return the response entity
+     */
     public ResponseEntity<?> convertYard(Double amount) {
         Length lengthModel = new Length();
         lengthModel.setCentimeter(amount*91.44);
@@ -99,6 +156,12 @@ public class LengthController {
         return jsonResponse(lengthModel);
     }
 
+    /**
+     * Convert meter response entity. This method converts the value from meters to 7 other units of length.
+     *
+     * @param amount the amount
+     * @return the response entity
+     */
     public ResponseEntity<?> convertMeter(Double amount) {
         Length lengthModel = new Length();
         lengthModel.setCentimeter(amount*100);
@@ -112,6 +175,12 @@ public class LengthController {
         return jsonResponse(lengthModel);
     }
 
+    /**
+     * Convert foot response entity. This method converts the value from feet to 7 other units of length.
+     *
+     * @param amount the amount
+     * @return the response entity
+     */
     public ResponseEntity<?> convertFoot(Double amount) {
         Length lengthModel = new Length();
         lengthModel.setCentimeter(amount*30.48);
@@ -125,6 +194,12 @@ public class LengthController {
         return jsonResponse(lengthModel);
     }
 
+    /**
+     * Convert inch response entity. This method converts the value from inches to 7 other units of length.
+     *
+     * @param amount the amount
+     * @return the response entity
+     */
     public ResponseEntity<?> convertInch(Double amount) {
         Length lengthModel = new Length();
         lengthModel.setCentimeter(amount*2.54);
@@ -138,6 +213,12 @@ public class LengthController {
         return jsonResponse(lengthModel);
     }
 
+    /**
+     * Convert centimeter response entity. This method converts the value from centimeters to 7 other units of length.
+     *
+     * @param amount the amount
+     * @return the response entity
+     */
     public ResponseEntity<?> convertCentimeter(Double amount) {
         Length lengthModel = new Length();
         lengthModel.setCentimeter(amount);
@@ -151,6 +232,12 @@ public class LengthController {
         return jsonResponse(lengthModel);
     }
 
+    /**
+     * Convert millimeter response entity. This method converts the value from millimeters to 7 other units of length.
+     *
+     * @param amount the amount
+     * @return the response entity
+     */
     public ResponseEntity<?> convertMillimeter(Double amount) {
         Length lengthModel = new Length();
         lengthModel.setCentimeter(amount*0.1);
