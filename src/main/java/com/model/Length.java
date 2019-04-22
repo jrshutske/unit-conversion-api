@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 
+/**
+ * The type Length.
+ */
 public class Length {
 
     @Getter
@@ -39,6 +42,9 @@ public class Length {
     @Setter
     private Double millimeter;
 
+    /**
+     * Instantiates a new Length.
+     */
     public Length(){}
 }
 

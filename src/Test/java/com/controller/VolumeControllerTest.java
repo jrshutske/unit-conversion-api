@@ -5,9 +5,15 @@ import org.junit.Test;
 import org.springframework.http.ResponseEntity;
 import static org.junit.Assert.assertEquals;
 
+/**
+ * The type Volume controller test. This is a unit test for the VolumeController class.
+ */
 public class VolumeControllerTest {
 
 
+    /**
+     * Convert gallon test.
+     */
     @Test
     public void convertGallonTest() {
         VolumeController vc = new VolumeController();
@@ -39,6 +45,9 @@ public class VolumeControllerTest {
 
     }
 
+    /**
+     * Convert liter test.
+     */
     @Test
     public void convertLiterTest() {
         VolumeController vc = new VolumeController();
@@ -70,6 +79,9 @@ public class VolumeControllerTest {
 
     }
 
+    /**
+     * Convert quart test.
+     */
     @Test
     public void convertQuartTest() {
         VolumeController vc = new VolumeController();
@@ -101,6 +113,9 @@ public class VolumeControllerTest {
 
     }
 
+    /**
+     * Convert pint test.
+     */
     @Test
     public void convertPintTest() {
         VolumeController vc = new VolumeController();
@@ -132,6 +147,9 @@ public class VolumeControllerTest {
 
     }
 
+    /**
+     * Convert cup test.
+     */
     @Test
     public void convertCupTest() {
         VolumeController vc = new VolumeController();
@@ -163,6 +181,9 @@ public class VolumeControllerTest {
 
     }
 
+    /**
+     * Convert milliliter test.
+     */
     @Test
     public void convertMilliliterTest() {
         VolumeController vc = new VolumeController();
@@ -194,6 +215,9 @@ public class VolumeControllerTest {
 
     }
 
+    /**
+     * Convert fluid ounce test.
+     */
     @Test
     public void convertFluidOunceTest() {
         VolumeController vc = new VolumeController();

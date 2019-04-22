@@ -25,34 +25,69 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 
+/**
+ * The type Volume controller. This class accepts a volume measurement in any of 7 different units, and converts
+ * that measurement to the other 6 units and returns it to the user.
+ */
 @Controller
 @SpringBootApplication
 public class VolumeController {
 
+    /**
+     * The enum Units. For volume measurement conversion.
+     */
     public enum units {
+
         gallon, liter, quart,
         pint, cup, milliliter,
         fluidOunce
+
     }
 
     static final Double defaultAmount = 1.0;
 
+    /**
+     * Volume response entity. Shows that the user has chosen 'volume' as their type of conversion.
+     *
+     * @return the response entity
+     */
     @GetMapping(value = "/api/volume")
     public ResponseEntity<?> volume() {
         return new ResponseEntity<>(units.values(), HttpStatus.OK);
     }
 
+    /**
+     * Default volume response entity. This receives the users choice of unit to convert.
+     *
+     * @param unit the unit
+     * @return the response entity
+     */
     @GetMapping(value = "/api/volume/{unit}")
     public ResponseEntity<?> defaultVolume(@PathVariable String unit) {
         return convertVolume(unit, defaultAmount);
     }
 
+    /**
+     * Custom volume response entity. This receives the unit and the numerical measurement they wish to convert.
+     *
+     * @param unit   the unit
+     * @param amount the amount
+     * @return the response entity
+     */
     @GetMapping(value = "/api/volume/{unit}/{amount}")
     public ResponseEntity<?> customVolume(@PathVariable String unit,
                                           @PathVariable Double amount) {
         return convertVolume(unit, amount);
     }
 
+    /**
+     * Convert volume response entity. This switch statement determines which method to call based on what unit
+     * the user would like to convert.
+     *
+     * @param unit   the unit
+     * @param amount the amount
+     * @return the response entity
+     */
     public ResponseEntity<?> convertVolume(String unit, Double amount) {
         switch (unit) {
             case "gallon":return convertGallon(amount);
@@ -66,6 +101,13 @@ public class VolumeController {
         }
     }
 
+    /**
+     * Json response response entity. This returns an error message if no value was entered, or the converted
+     * measurements.
+     *
+     * @param volumeModel the volume model
+     * @return the response entity
+     */
     public ResponseEntity<?> jsonResponse(Volume volumeModel) {
         if (volumeModel.getGallon() == null) {
             return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
@@ -74,6 +116,12 @@ public class VolumeController {
         }
     }
 
+    /**
+     * Convert gallon response entity. This method converts the value from gallons to 6 other units of volume.
+     *
+     * @param amount the amount
+     * @return the response entity
+     */
     public ResponseEntity<?> convertGallon(Double amount) {
         Volume volumeModel = new Volume();
         volumeModel.setGallon(amount);
@@ -86,6 +134,12 @@ public class VolumeController {
         return jsonResponse(volumeModel);
     }
 
+    /**
+     * Convert liter response entity. This method converts the value from liters to 6 other units of volume.
+     *
+     * @param amount the amount
+     * @return the response entity
+     */
     public ResponseEntity<?> convertLiter(Double amount) {
         Volume volumeModel = new Volume();
         volumeModel.setGallon(amount*0.26417205236);
@@ -98,6 +152,12 @@ public class VolumeController {
         return jsonResponse(volumeModel);
     }
 
+    /**
+     * Convert quart response entity. This method converts the value from quarts to 6 other units of volume.
+     *
+     * @param amount the amount
+     * @return the response entity
+     */
     public ResponseEntity<?> convertQuart(Double amount) {
         Volume volumeModel = new Volume();
         volumeModel.setGallon(amount*0.25);
@@ -110,6 +170,12 @@ public class VolumeController {
         return jsonResponse(volumeModel);
     }
 
+    /**
+     * Convert pint response entity. This method converts the value from pints to 6 other units of volume.
+     *
+     * @param amount the amount
+     * @return the response entity
+     */
     public ResponseEntity<?> convertPint(Double amount) {
         Volume volumeModel = new Volume();
         volumeModel.setGallon(amount*0.12500000713);
@@ -122,6 +188,12 @@ public class VolumeController {
         return jsonResponse(volumeModel);
     }
 
+    /**
+     * Convert cup response entity. This method converts the value from cups to 6 other units of volume.
+     *
+     * @param amount the amount
+     * @return the response entity
+     */
     public ResponseEntity<?> convertCup(Double amount) {
         Volume volumeModel = new Volume();
         volumeModel.setGallon(amount*0.0624815876);
@@ -134,6 +206,12 @@ public class VolumeController {
         return jsonResponse(volumeModel);
     }
 
+    /**
+     * Convert milliliter response entity. This method converts the value from milliliters to 6 other units of volume.
+     *
+     * @param amount the amount
+     * @return the response entity
+     */
     public ResponseEntity<?> convertMilliliter(Double amount) {
         Volume volumeModel = new Volume();
         volumeModel.setGallon(amount*0.00026417205);
@@ -146,6 +224,12 @@ public class VolumeController {
         return jsonResponse(volumeModel);
     }
 
+    /**
+     * Convert fluid ounce response entity. This method converts the value from fluid ounces to 6 other units of volume.
+     *
+     * @param amount the amount
+     * @return the response entity
+     */
     public ResponseEntity<?> convertFluidOunce(Double amount) {
         Volume volumeModel = new Volume();
         volumeModel.setGallon(amount*0.00781249219);
