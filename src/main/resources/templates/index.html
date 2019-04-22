@@ -43,7 +43,7 @@
         <div class="form-group">
           <input type="number" class="form-control" id="numberInput" aria-describedby="number" placeholder="Value">
         </div>
-        <button disabled class="btn btn-secondary" id="go">Go</button>
+        <button disabled onclick="hitApi();" class="btn btn-secondary" id="go">Go</button>
       </form>
     </div>
   </div>
@@ -75,7 +75,7 @@
       .then(units => {
         let unitInput = document.querySelector("#unitInput");
         unitInput.innerHTML = "<option value=\'\' selected disabled hidden>Select Unit</option>";
-        unitInput.addEventListener("change", submitButton);
+        unitInput.addEventListener("change", document.querySelector("#go").removeAttribute("disabled"));
         units.forEach(unit => {
           let option = document.createElement("option");
           option.innerHTML = unit;
@@ -84,14 +84,14 @@
     })
   }
 
-  const submitButton = () => {
-    document.querySelector("#go").removeAttribute("disabled");
+  const hitApi = () => {
     let type = document.querySelector("#typeInput").value;
     let unit = document.querySelector("#unitInput").value;
     let number = document.querySelector("#numberInput").value;
     document.querySelector("#convertForm").setAttribute("action",
             ` https://java-unit-conversion.herokuapp.com/api/${type}/${unit}/${number}`);
   }
+
   getType();
 </script>
 </body>
