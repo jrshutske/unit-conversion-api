@@ -16,28 +16,35 @@
 
 package com.controller;
 
-import com.controller.TypeController;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
+/**
+ * The type Type controller.
+ */
 @Controller
 @SpringBootApplication
 public class TypeController {
 
+    /**
+     * The enum Types. For type determination.
+     */
     public enum types {
-        volume, length, weight, temperature
+
+        volume, length,
+        weight, temperature
+
     }
 
+    /**
+     * Api response entity. Sends the rest of the information to the appropriate class.
+     *
+     * @return the response entity
+     */
     @GetMapping(value = "/api")
     public ResponseEntity<?> api() {
         return new ResponseEntity<>(types.values(), HttpStatus.OK);
