@@ -8,7 +8,12 @@
 ## Norm
 | Day | Time | Accomplishment |
 | ------ | ------ | ------ |
-||||
+|4/1|30 min|UI changes, test branching|
+|4/11|3 hrs|index changes, getters and setters, update controllers|
+|4/13|3 hrs|adding endpoints to all controllers|
+|4/15|1 hr|built test directory|
+|4/16|3 hrs|built all tests, ran successfully|
+|4/18|1.5 hrs|added javadocs|
 
 ## Jack
 | Day | Time | Accomplishment |
