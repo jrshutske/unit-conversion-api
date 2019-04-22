@@ -5,8 +5,14 @@ import org.junit.Test;
 import org.springframework.http.ResponseEntity;
 import static org.junit.Assert.assertEquals;
 
+/**
+ * The type Temperature controller test. This is a unit test for the TemperatureController class.
+ */
 public class TemperatureControllerTest {
 
+    /**
+     * Convert fahrenheit test.
+     */
     @Test
     public void convertFahrenheitTest() {
         TemperatureController tc = new TemperatureController();
@@ -25,6 +31,9 @@ public class TemperatureControllerTest {
         assertEquals(actualKelvin, expectedKelvin);
     }
 
+    /**
+     * Convert celsius test.
+     */
     @Test
     public void convertCelsiusTest() {
         TemperatureController tc = new TemperatureController();
@@ -43,6 +52,9 @@ public class TemperatureControllerTest {
         assertEquals(actualKelvin, expectedKelvin);
     }
 
+    /**
+     * Convert kelvin test.
+     */
     @Test
     public void convertKelvinTest() {
         TemperatureController tc = new TemperatureController();

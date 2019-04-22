@@ -3,6 +3,9 @@ package com.model;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * The type Temperature.
+ */
 public class Temperature {
 
     @Getter
@@ -17,6 +20,9 @@ public class Temperature {
     @Setter
     private Double kelvin;
 
+    /**
+     * Instantiates a new Temperature.
+     */
     public Temperature(){}
 
 }
