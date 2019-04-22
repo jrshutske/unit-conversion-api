@@ -70,18 +70,23 @@
   }
 
   const getUnit = (e) => {
+    document.querySelector("#go").setAttribute("disabled", "true");
     fetch(`https://java-unit-conversion.herokuapp.com/api/${e.target.value}`)
       .then(response => response.json())
       .then(units => {
         let unitInput = document.querySelector("#unitInput");
         unitInput.innerHTML = "<option value=\'\' selected disabled hidden>Select Unit</option>";
-        unitInput.addEventListener("change", document.querySelector("#go").removeAttribute("disabled"));
+        unitInput.addEventListener("change", disableButton);
         units.forEach(unit => {
           let option = document.createElement("option");
           option.innerHTML = unit;
           unitInput.appendChild(option);
         })
     })
+  }
+
+  const disableButton = () => {
+    document.querySelector("#go").removeAttribute("disabled")
   }
 
   const hitApi = () => {
@@ -93,6 +98,7 @@
   }
 
   getType();
+  
 </script>
 </body>
 </html>
