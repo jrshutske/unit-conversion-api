@@ -1,7 +1,6 @@
 package com.controller;
 
 import com.model.Length;
-import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.ResponseEntity;
 import static org.junit.Assert.assertEquals;
