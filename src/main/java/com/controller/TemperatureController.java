@@ -23,9 +23,7 @@ public class TemperatureController {
      * The enum Units. For temperature measurement conversion.
      */
     public enum units {
-
         fahrenheit, celsius, kelvin
-
     }
 
     static final Double defaultAmount = 1.0;
@@ -77,7 +75,7 @@ public class TemperatureController {
             case "fahrenheit": return convertFahrenheit(amount);
             case "celsius": return convertCelsius(amount);
             case "kelvin": return convertKelvin(amount);
-            default:return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
+            default:return ResponseEntity.status(HttpStatus.NOT_FOUND).body("There was a problem getting the resource.");
         }
     }
 
@@ -90,7 +88,7 @@ public class TemperatureController {
      */
     public ResponseEntity<?> jsonResponse(Temperature temperatureModel) {
         if (temperatureModel.getFahrenheit() == null) {
-            return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("There was a problem getting the resource.");
         } else {
             return new ResponseEntity<>(temperatureModel, HttpStatus.OK);
         }

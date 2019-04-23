@@ -37,10 +37,7 @@ public class WeightController {
      * The enum Units. For weight measurement conversion.
      */
     public enum units {
-
-        stone, pound, kilogram,
-        gram, milligram, ounce
-
+        stone, pound, kilogram, gram, milligram, ounce
     }
 
     static final Double defaultAmount = 1.0;
@@ -95,7 +92,7 @@ public class WeightController {
             case "gram":return convertGram(amount);
             case "milligram":return convertMilligram(amount);
             case "ounce":return convertOunce(amount);
-            default:return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
+            default:return ResponseEntity.status(HttpStatus.NOT_FOUND).body("There was a problem getting the resource.");
         }
     }
 
@@ -108,7 +105,7 @@ public class WeightController {
      */
     public ResponseEntity<?> jsonResponse(Weight weightModel) {
         if (weightModel.getStone() == null) {
-            return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("There was a problem getting the resource.");
         } else {
             return new ResponseEntity<>(weightModel, HttpStatus.OK);
         }
