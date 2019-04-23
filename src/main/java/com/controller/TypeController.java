@@ -34,10 +34,7 @@ public class TypeController {
      * The enum Types. For type determination.
      */
     public enum types {
-
-        volume, length,
-        weight, temperature
-
+        volume, length, weight, temperature
     }
 
     /**

@@ -37,10 +37,7 @@ public class VolumeController {
      * The enum Units. For volume measurement conversion.
      */
     public enum units {
-
-        gallon, liter, quart,
-        pint, cup, milliliter,
-        fluidOunce
+        gallon, liter, quart, pint, cup, milliliter, fluidOunce
 
     }
 
@@ -97,7 +94,7 @@ public class VolumeController {
             case "cup":return convertCup(amount);
             case "milliliter":return convertMilliliter(amount);
             case "fluidOunce":return convertFluidOunce(amount);
-            default:return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
+            default:return ResponseEntity.status(HttpStatus.NOT_FOUND).body("There was a problem getting the resource.");
         }
     }
 
@@ -110,7 +107,7 @@ public class VolumeController {
      */
     public ResponseEntity<?> jsonResponse(Volume volumeModel) {
         if (volumeModel.getGallon() == null) {
-            return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("There was a problem getting the resource.");
         } else {
             return new ResponseEntity<>(volumeModel, HttpStatus.OK);
         }

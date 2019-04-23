@@ -21,9 +21,7 @@ public class LengthController {
      * The enum Units. For length measurement conversion.
      */
     public enum units {
-        mile, kilometer, yard,
-        meter, centimeter, foot,
-        inch, millimeter
+        mile, kilometer, yard, meter, centimeter, foot, inch, millimeter
     }
 
     static final Double defaultAmount = 1.0;
@@ -80,7 +78,7 @@ public class LengthController {
             case "centimeter":return convertCentimeter(amount);
             case "millimeter":return convertMillimeter(amount);
             case "foot":return convertFoot(amount);
-            default:return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
+            default:return ResponseEntity.status(HttpStatus.NOT_FOUND).body("There was a problem getting the resource.");
         }
     }
 
@@ -92,7 +90,7 @@ public class LengthController {
      */
     public ResponseEntity<?> jsonResponse(Length lengthModel) {
         if (lengthModel.getMile() == null) {
-            return ResponseEntity.status(HttpStatus.OK).body("There was a problem getting the resource.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("There was a problem getting the resource.");
         } else {
             return new ResponseEntity<>(lengthModel, HttpStatus.OK);
         }
